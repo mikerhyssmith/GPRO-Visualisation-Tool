@@ -2,6 +2,8 @@ package data;
 
 import java.util.ArrayList;
 
+import dataReader.trackParser;
+
 public class Data {
 	private static Data m_instance = null;
 	
@@ -10,8 +12,7 @@ public class Data {
 	
 	private Data()
 	{
-		m_raceTracks = new ArrayList<RaceTrack>();
-		m_races = new ArrayList<Race>();
+		Initialise();
 	}
 	
 	public static Data getInstance()
@@ -29,5 +30,16 @@ public class Data {
 	public ArrayList<Race> races()
 	{
 		return m_races;
+	}
+	
+	private void Initialise()
+	{
+		// Check if Race Track XML File exists, If not download a new listing.
+		// For the moment we have no local copy, thus a new listing is required each time.
+		m_raceTracks = trackParser.getTracks();
+		
+		// Read through all .xls files and load races into memory. 
+		// Not yet constructed.
+		m_races = new ArrayList<Race>();
 	}
 }
