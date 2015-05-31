@@ -6,13 +6,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 
 /* Class to handle the download of the main directory of all races. Each race has a unique url which is captured here */
-public class trackListParser {
+public class TrackListParser {
 	
-	private static String mainTrackWebPageURL = htmlHelper.domainUrl + "ViewTracks.asp";
+	private static String mainTrackWebPageURL = HTMLHelper.domainUrl + "ViewTracks.asp";
 	
 	public static ArrayList<String> getTrackUrls()
 	{
-		String htmlStream = htmlHelper.downloadWebPage(mainTrackWebPageURL);
+		String htmlStream = HTMLHelper.downloadWebPage(mainTrackWebPageURL);
 		return parseTrackUrls(htmlStream);
 	}
 	
@@ -64,7 +64,7 @@ public class trackListParser {
 																						{
 																							if(url.nodeName() == "a")
 																							{
-																								urls.add(htmlHelper.domainUrl + url.attr("href"));
+																								urls.add(HTMLHelper.domainUrl + url.attr("href"));
 																							}
 																						}
 																					}

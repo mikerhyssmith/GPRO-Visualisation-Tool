@@ -1,0 +1,54 @@
+package data;
+
+public class Pit {
+	
+	public enum Reason { na, Tyres, Fuel }
+	
+	private int m_pitNumber;
+	private int m_lap;
+	private Reason m_reason;
+	private int m_tyreCondition;
+	private int m_fuelLeft;
+	private int m_refil;
+	private double m_pitTime;
+	
+	public Pit(int pitNumber, int lap, Reason reason, int tyreCondition, int fuelLeft, int refil, double pitTime)
+	{
+		m_pitNumber 		= pitNumber;
+		m_lap 				= lap;
+		m_reason 			= reason;
+		m_tyreCondition 	= tyreCondition;
+		m_fuelLeft 			= fuelLeft;
+		m_refil 			= refil;
+		m_pitTime 			= pitTime;
+	}
+
+	public int getPitNumber() {
+		return m_pitNumber;
+	}
+
+	public int getLap() {
+		return m_lap;
+	}
+
+	public Reason getReason() {
+		return m_reason;
+	}
+
+	public int getTyreCondition() {
+		return m_tyreCondition;
+	}
+
+	public int getFuelLeft() {
+		return m_fuelLeft;
+	}
+
+	public int getRefil() {
+		return m_refil;
+	}
+
+	public double getPitTime() {
+		return m_pitTime;
+	}
+	
+}

@@ -11,16 +11,16 @@ import org.jsoup.nodes.Node;
 import data.RaceTrack;
 
 /* Class designed to handle the parsing of GPRO html web pages to create RaceTrack Objects */
-public class trackParser {
+public class TrackParser {
 		
 	/* Main static method to gain a new listing of GPRO tracks */
 	public static ArrayList<RaceTrack> getTracks()
 	{
 		ArrayList<RaceTrack> tracks = new ArrayList<RaceTrack>();
-		ArrayList<String> trackURLS = trackListParser.getTrackUrls();
+		ArrayList<String> trackURLS = TrackListParser.getTrackUrls();
 		for(String url : trackURLS)
 		{
-			String htmlStream = htmlHelper.downloadWebPage(url);
+			String htmlStream = HTMLHelper.downloadWebPage(url);
 			RaceTrack track = parseTrackInfo(htmlStream, url);
 			if(track != null)
 				tracks.add(track);

@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 /* File to handle the Web Request to download a html page */
-public class htmlHelper {
+public class HTMLHelper {
 	public static final String domainUrl = "http://gpro.net/gb/";
 	public static String downloadWebPage(String url)
 	{
