@@ -1,5 +1,7 @@
 package data;
 
+import data.Lap.Tyres;
+
 public class Pit {
 	
 	public enum Reason { na, Tyres, Fuel }
@@ -50,5 +52,23 @@ public class Pit {
 	public double getPitTime() {
 		return m_pitTime;
 	}
+	public static Reason reasonObject(String text)
+	{
+		Reason reason = Reason.na;
+		if(text == "The tyres could not do any more laps") 	{ reason = Reason.Tyres; 	}
+		else if(text == "No more fuel was left") 			{ reason = Reason.Fuel; 	}
+		return reason;
+	}
 	
+	public static String reasonString(Reason object)
+	{
+		String type = "na";
+		switch(object)
+		{
+		case Tyres: 	type = "The tyres could not do any more laps";	break;
+		case Fuel:		type = "No more fuel was left";					break;
+		default:		type = "na";									break;
+		}
+		return type;
+	}
 }

@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
+import dataReader.RaceParser;
 import dataReader.TrackParser;
 
 public class Data {
@@ -40,7 +41,6 @@ public class Data {
 		m_raceTracks = TrackParser.getTracks();
 		
 		// Read through all .xls files and load races into memory. 
-		// Not yet constructed.
-		m_races = new ArrayList<Race>();
+		m_races = RaceParser.getRaces();
 	}
 }

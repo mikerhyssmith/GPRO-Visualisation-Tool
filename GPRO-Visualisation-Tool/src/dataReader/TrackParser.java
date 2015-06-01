@@ -20,8 +20,8 @@ public class TrackParser {
 		ArrayList<String> trackURLS = TrackListParser.getTrackUrls();
 		for(String url : trackURLS)
 		{
-			String htmlStream = HTMLHelper.downloadWebPage(url);
-			RaceTrack track = parseTrackInfo(htmlStream, url);
+			String htmlStream = FileHandler.downloadRacePage(url);
+			RaceTrack track = parseRaceTrack(htmlStream, url);
 			if(track != null)
 				tracks.add(track);
 		}
@@ -81,8 +81,9 @@ public class TrackParser {
 	}
 	
 	/* Parses through the HTML table of each Race html page */
-	private static RaceTrack parseRaceTrack(Node node, String raceName, String raceURL)
+	private static RaceTrack parseRaceTrackInfo(Node node, String raceName, String raceURL)
 	{ 
+		RaceTrack track = null;
 		if(node.nodeName() == "tbody")
 		{
 			Hashtable<String, String> dataPair = new Hashtable<String, String>();
@@ -114,14 +115,15 @@ public class TrackParser {
 			/* These two items are picked up earlier on in the parsing process */
 			dataPair.put("name:", raceName);
 			dataPair.put("raceURL:", raceURL);
-			return createRaceTrack(dataPair);
+			track = createRaceTrack(dataPair);
 		}
-		return null;
+		return track;
 	}
 	
 	/* Long and winded parser due to the difficulty parsing a webpage */
-	private static RaceTrack parseTrackInfo(String htmlStream, String raceURL)
+	private static RaceTrack parseRaceTrack(String htmlStream, String raceURL)
 	{
+		RaceTrack track = null;
 		String raceName = new String();
 		Document webpage = Jsoup.parse(htmlStream);
 		for(Node html : webpage.childNodes())
@@ -192,7 +194,7 @@ public class TrackParser {
 																																		{
 																																			if(tbody3.nodeName() == "tbody")
 																																			{
-																																				return parseRaceTrack(tbody3, raceName, raceURL);
+																																				track = parseRaceTrackInfo(tbody3, raceName, raceURL);
 																																			}
 																																		}
 																																	}
@@ -228,6 +230,6 @@ public class TrackParser {
 				}
 			}
 		}
-		return null;
+		return track;
 	}
 }

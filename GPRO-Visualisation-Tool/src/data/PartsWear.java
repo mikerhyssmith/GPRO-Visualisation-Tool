@@ -5,6 +5,7 @@ public class PartsWear {
 	private Wear m_chasis;
 	private Wear m_engine;
 	private Wear m_frontWing;
+	private Wear m_rearWing;
 	private Wear m_underbody;
 	private Wear m_sidePods;
 	private Wear m_cooling;
@@ -13,11 +14,12 @@ public class PartsWear {
 	private Wear m_suspension;
 	private Wear m_electronics;
 	
-	public PartsWear(Wear chasis, Wear engine, Wear frontWing, Wear underbody, Wear sidePods, Wear cooling, Wear gearbox, Wear brakes, Wear suspension, Wear electronics)
+	public PartsWear(Wear chasis, Wear engine, Wear frontWing, Wear rearWing, Wear underbody, Wear sidePods, Wear cooling, Wear gearbox, Wear brakes, Wear suspension, Wear electronics)
 	{
 		m_chasis 		= chasis;
 		m_engine 		= engine;
 		m_frontWing 	= frontWing;
+		m_rearWing		= rearWing;
 		m_underbody 	= underbody;
 		m_sidePods 		= sidePods;
 		m_cooling 		= cooling;
@@ -37,6 +39,10 @@ public class PartsWear {
 
 	public Wear getFrontWing() {
 		return m_frontWing;
+	}
+	
+	public Wear getRearWing() {
+		return m_rearWing;
 	}
 
 	public Wear getUnderbody() {
