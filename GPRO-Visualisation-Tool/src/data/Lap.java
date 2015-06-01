@@ -125,8 +125,9 @@ public class Lap {
 		String type = "na";
 		switch(object)
 		{
-		case DriverMistake: 	type = "Driver Mistake";	break;
-		case Pit:				type = "Pit";				break;
+			case DriverMistake: 	type = "Driver Mistake";	break;
+			case Pit:				type = "Pit";				break;
+			default:				type = "na";				break;
 		}
 		return type;
 	}

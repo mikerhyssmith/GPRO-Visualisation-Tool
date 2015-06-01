@@ -1,8 +1,6 @@
 package data;
 
-import java.io.Serializable;
-
-public class RaceTrack implements Serializable {
+public class RaceTrack {
 
 	public enum difficultyListing 	{ na, VeryLow, Low, Medium, High, VeryHigh }
 	public enum suspensionListing 	{ na, Soft, Medium, Hard }

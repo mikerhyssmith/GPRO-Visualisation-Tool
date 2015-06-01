@@ -1,7 +1,5 @@
 package data;
 
-import data.Lap.Tyres;
-
 public class Pit {
 	
 	public enum Reason { na, Tyres, Fuel }

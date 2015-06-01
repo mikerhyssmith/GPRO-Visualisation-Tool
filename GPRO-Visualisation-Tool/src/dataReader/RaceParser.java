@@ -155,7 +155,7 @@ public class RaceParser {
 			Pair<Integer, Integer> atEnd		= parseEndTable				(tables.get(tableFinish));
 			int endingTyres						= atEnd.first;
 			int endingFuel						= atEnd.second;
-			String name 						= description.first;
+			//This is required later String name 						= description.first;
 			int season							= description.second;
 			
 			race = new Race(season, laps, pitstops, risks, setup, partsWear, startingFuel, endingTyres, endingFuel);
@@ -236,7 +236,6 @@ public class RaceParser {
 	
 	private static Risks parseRiskTable(Node table)
 	{
-		System.out.println(table.childNodeSize());
 		Risks risks = null;
 		if(table.childNodeSize() > topOfTable)
 			table.childNode(topOfTable).remove();
@@ -246,7 +245,6 @@ public class RaceParser {
 			table.childNode(topOfTable).remove();
 		if(table.childNodeSize() > topOfTable)
 			table.childNode(topOfTable).remove();
-		System.out.println(table.childNodeSize());
 		for(Node tr : table.childNodes())
 		{
 			if(tr.nodeName() == "tr")
