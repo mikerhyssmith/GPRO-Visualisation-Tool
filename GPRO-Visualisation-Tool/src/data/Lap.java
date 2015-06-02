@@ -62,11 +62,11 @@ public class Lap {
     public static Weather weatherObject(String text)
     {
         Weather weather = Weather.na;
-        if(text == "Very Cloudy") 				{ weather = Weather.VeryCloudy; 		}
-        else if(text == "Particially Cloudy") 	{ weather = Weather.PartiallyCloudy; 	}
-        else if(text == "Cloudy") 				{ weather = Weather.Cloudy; 			}
-        else if(text == "Sunny") 				{ weather = Weather.Sunny; 				}
-        else if(text == "Rain") 				{ weather = Weather.Rain; 				}
+        if(text.contains("Very Cloudy")) 				{ weather = Weather.VeryCloudy; 		}
+        else if(text.contains("Particially Cloudy")) 	{ weather = Weather.PartiallyCloudy; 	}
+        else if(text.contains("Cloudy")) 				{ weather = Weather.Cloudy; 			}
+        else if(text.contains("Sunny")) 				{ weather = Weather.Sunny; 				}
+        else if(text.contains("Rain")) 				    { weather = Weather.Rain; 				}
         return weather;
     }
 
@@ -88,11 +88,11 @@ public class Lap {
     public static Tyres tyresObject(String text)
     {
         Tyres tyres = Tyres.na;
-        if(text == "Extra Soft") 	{ tyres = Tyres.ExtraSoft; 	}
-        else if(text == "Soft") 	{ tyres = Tyres.Soft; 		}
-        else if(text == "Medium") 	{ tyres = Tyres.Medium; 	}
-        else if(text == "Hard") 	{ tyres = Tyres.Hard; 		}
-        else if(text == "Rain") 	{ tyres = Tyres.Rain; 		}
+        if(text.contains("Extra Soft")) 	{ tyres = Tyres.ExtraSoft; 	}
+        else if(text.contains("Soft")) 	    { tyres = Tyres.Soft; 		}
+        else if(text.contains("Medium")) 	{ tyres = Tyres.Medium; 	}
+        else if(text.contains("Hard")) 	    { tyres = Tyres.Hard; 		}
+        else if(text.contains("Rain")) 	    { tyres = Tyres.Rain; 		}
         return tyres;
     }
 
@@ -115,8 +115,8 @@ public class Lap {
     {
         // na, DriverMistake, Pit 
         Event event = Event.na;
-        if(text == "Driver Mistake") 	{ event = Event.DriverMistake; 	}
-        else if(text == "Pit") 			{ event = Event.Pit; 			}
+        if(text.contains("Driver Mistake")) 	{ event = Event.DriverMistake; 	}
+        else if(text.contains("Pit")) 			{ event = Event.Pit; 			}
         return event;
     }
 

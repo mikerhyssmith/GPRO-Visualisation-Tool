@@ -159,11 +159,11 @@ public class RaceTrack {
     public static difficultyListing difficultyListingObject(String text) 	
     { 
         difficultyListing type = difficultyListing.na;
-        if(text == "Very low") { type = difficultyListing.VeryLow; }
-        else if(text == "Low") { type = difficultyListing.Low; }
-        else if(text == "Medium") { type = difficultyListing.Medium; }
-        else if(text == "High") {type = difficultyListing.High; }
-        else if(text == "Very high") { type = difficultyListing.VeryHigh; }
+        if(text.contains("Very low")) { type = difficultyListing.VeryLow; }
+        else if(text.contains("Low")) { type = difficultyListing.Low; }
+        else if(text.contains("Medium")) { type = difficultyListing.Medium; }
+        else if(text.contains("High")) {type = difficultyListing.High; }
+        else if(text.contains("Very high")) { type = difficultyListing.VeryHigh; }
         return type;
     }
 
@@ -185,9 +185,9 @@ public class RaceTrack {
     public static suspensionListing suspensionListingObject(String text) 	
     { 
         suspensionListing type = suspensionListing.na;
-        if(text == "Soft") 			{ type = suspensionListing.Soft; 	}
-        else if(text == "Medium") 	{ type = suspensionListing.Medium; 	}
-        else if(text == "Hard") 	{ type = suspensionListing.Hard; 	}
+        if(text.contains("Soft")) 			{ type = suspensionListing.Soft; 	}
+        else if(text.contains("Medium")) 	{ type = suspensionListing.Medium; 	}
+        else if(text.contains("Hard")) 	    { type = suspensionListing.Hard; 	}
         return type;
     }
 
@@ -207,11 +207,11 @@ public class RaceTrack {
     public static overtakingListing overtakingListingObject(String text) 	
     { 
         overtakingListing type = overtakingListing.na;
-        if(text == "Very easy")			{ type = overtakingListing.VeryEasy;}
-        else if(text == "Easy")			{ type = overtakingListing.Easy; 	}
-        else if(text == "Normal")		{ type = overtakingListing.Normal; 	}
-        else if(text == "Hard")			{ type = overtakingListing.Hard; 	}
-        else if(text == "Very hard")	{ type = overtakingListing.VeryHard;}
+        if(text.contains("Very easy"))			{ type = overtakingListing.VeryEasy;}
+        else if(text.contains("Easy"))			{ type = overtakingListing.Easy; 	}
+        else if(text.contains("Normal"))		{ type = overtakingListing.Normal; 	}
+        else if(text.contains("Hard"))			{ type = overtakingListing.Hard; 	}
+        else if(text.contains("Very hard"))	    { type = overtakingListing.VeryHard;}
         return type;
     }
 
@@ -233,8 +233,8 @@ public class RaceTrack {
     public static categoryListing categoryListingObject(String text) 	
     { 
         categoryListing type = categoryListing.na;
-        if(text == "F1") 			{ type = categoryListing.F1; }
-        else if(text == "non F1") 	{ type = categoryListing.NonF1; }
+        if(text.contains("F1")) 			{ type = categoryListing.F1; }
+        else if(text.contains("non F1")) 	{ type = categoryListing.NonF1; }
         return type;
     }
 

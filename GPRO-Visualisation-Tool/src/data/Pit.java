@@ -2,7 +2,7 @@ package data;
 
 public class Pit {
 
-    public enum Reason { na, Tyres, Fuel }
+    public enum Reason { na, Tyres, Fuel, Weather }
 
     private int m_pitNumber;
     private int m_lap;
@@ -53,8 +53,9 @@ public class Pit {
     public static Reason reasonObject(String text)
     {
         Reason reason = Reason.na;
-        if(text == "The tyres could not do any more laps") 	{ reason = Reason.Tyres; 	}
-        else if(text == "No more fuel was left") 			{ reason = Reason.Fuel; 	}
+        if(text.contains("The tyres could not do any more laps")) 	         { reason = Reason.Tyres; 	}
+        else if(text.contains("No more fuel was left")) 			         { reason = Reason.Fuel; 	}
+        else if(text.contains("Tyres change due to the weather change"))     { reason = Reason.Weather;  }
         return reason;
     }
 
@@ -63,9 +64,10 @@ public class Pit {
         String type = "na";
         switch(object)
         {
-        case Tyres: 	type = "The tyres could not do any more laps";	break;
-        case Fuel:		type = "No more fuel was left";					break;
-        default:		type = "na";									break;
+        case Tyres: 	type = "The tyres could not do any more laps";	 break;
+        case Fuel:		type = "No more fuel was left";					 break;
+        case Weather:   type = "Tyres change due to the weather change"; break;
+        default:		type = "na";								  	 break;
         }
         return type;
     }
