@@ -4,7 +4,7 @@ public class Lap {
 
     public enum Weather { na, VeryCloudy, PartiallyCloudy, Cloudy, Sunny, Rain}
     public enum Tyres 	{ na, ExtraSoft, Soft, Medium, Hard, Rain } 
-    public enum Event 	{ na, DriverMistake, Pit }
+    public enum Event 	{ na, DriverMistake, Pit, CarProblem }
 
     private int 		m_lapNumber;
     private String 		m_lapTime;
@@ -117,6 +117,7 @@ public class Lap {
         Event event = Event.na;
         if(text.contains("Driver Mistake")) 	{ event = Event.DriverMistake; 	}
         else if(text.contains("Pit")) 			{ event = Event.Pit; 			}
+        else if(text.contains("Car problem"))   { event = Event.CarProblem;     }
         return event;
     }
 
@@ -127,6 +128,7 @@ public class Lap {
         {
         case DriverMistake: 	type = "Driver Mistake";	break;
         case Pit:				type = "Pit";				break;
+        case CarProblem:        type = "Car problem";       break;
         default:				type = "na";				break;
         }
         return type;

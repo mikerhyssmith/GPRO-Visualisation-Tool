@@ -14,6 +14,7 @@ public class FileHandler {
     private static final String domainUrl 		= "http://gpro.net/gb/";
     private static String mainTrackWebPageURL 	= domainUrl + "ViewTracks.asp";
     private static final String raceFilesDir 	= "Races";
+    private static final String driversMarket   = "DriversMarket/DriversMarket.xml";
 
     public static String downloadRaceListPage()
     {
@@ -38,9 +39,16 @@ public class FileHandler {
         }
         return files;
     }
+    
+    public static String readDriverMarket()
+    {
+        return readFile(driversMarket);
+    }
 
     private static String readFile(String location)
     {
+        ClassLoader.getSystemResourceAsStream(location);
+        
         String stream = new String();
         try {
             BufferedReader reader = null;

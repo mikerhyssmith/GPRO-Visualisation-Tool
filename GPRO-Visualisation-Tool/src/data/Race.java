@@ -2,6 +2,9 @@ package data;
 
 import java.util.ArrayList;
 
+import data.Lap.Event;
+import data.Lap.Weather;
+
 public class Race {
     //private String m_name; The track stores the name
     private int m_season;
@@ -11,10 +14,18 @@ public class Race {
     private Setup m_setup;
     private PartsWear m_partsWear;
 
-    /* I'm not sure if these items should be here */
     private int m_startingFuel;
     private int m_tyresAtEnd;
     private int m_fuelLeft;
+    
+    /* calculation variables */
+    private boolean m_wetRace;
+    private boolean m_carProblem;
+    private int m_totalFuelUsed;
+    private int m_averageHumidity;
+    private int m_averageTemperature;
+    private int m_averageFuelPerLap;
+    private int m_averageTyreWearPerLap;
 
     public Race(int season, ArrayList<Lap> laps, ArrayList<Pit> pitstops, Risks risks, Setup setup, PartsWear partsWear, int startingFuel, int tyresAtEnd, int fuelLeft)
     {
@@ -27,8 +38,90 @@ public class Race {
         m_startingFuel = startingFuel;
         m_tyresAtEnd = tyresAtEnd;
         m_fuelLeft = fuelLeft;
+        
+        m_wetRace = false;
+        m_carProblem = false;
+        m_totalFuelUsed = 0;
+        m_averageHumidity = 0;
+        m_averageTemperature = 0;
+        m_averageFuelPerLap = 0;
+        m_averageTyreWearPerLap = 0;
 
-        // Perform some calculations, eg average tyre degredation per lap, average fuel consumption
+        analyseRace();
+    }
+    
+    private void analyseRace()
+    {
+        calculateWetRace();
+        calculateTechicalProblem();
+        calculateTotalFuelUsed();
+        calculateAverageHimidity();
+        calculateAverageTemperature();
+        calculateAverageTyreWearPerLap();
+        calculateAverageLapTime();
+    }
+    
+    private void calculateWetRace()
+    {
+        for(Lap lap: getLaps())
+            if(lap.getWeather() == Weather.Rain) { m_wetRace = true; return; }
+    }
+    
+    private void calculateTechicalProblem()
+    {
+        for(Lap lap: getLaps())
+            if(lap.getEvent() == Event.CarProblem) { m_carProblem = true; return; }
+    }
+    
+    private void calculateTotalFuelUsed()
+    {
+        int tankSize = 180;
+        int fuelUsed = 0;
+        int stintStart = m_startingFuel;
+        for(Pit pit: getPitstops())
+        {
+            int fuelLeft = (tankSize * (pit.getFuelLeft() / 100));
+            fuelUsed =+ stintStart - fuelLeft;
+            stintStart = pit.getRefil();
+        }
+        m_totalFuelUsed = fuelUsed;
+        m_averageFuelPerLap = fuelUsed / getLaps().size();
+    }
+    
+    private void calculateAverageHimidity()
+    {
+        int total = 0;
+        for(Lap lap: getLaps())
+            total =+ lap.getHumidity();
+        m_averageHumidity = total / getLaps().size();
+    }
+    
+    private void calculateAverageTemperature()
+    {
+        int total = 0;
+        for(Lap lap: getLaps())
+            total =+ lap.getTemperature();
+        m_averageTemperature = total / getLaps().size();
+    }
+    
+    private void calculateAverageTyreWearPerLap()
+    {
+        int tankSize = 180;
+        int fuelUsed = 0;
+        int stintStart = m_startingFuel;
+        for(Pit pit: getPitstops())
+        {
+            int fuelLeft = (tankSize * (pit.getFuelLeft() / 100));
+            fuelUsed =+ stintStart - fuelLeft;
+            stintStart = pit.getRefil();
+        }
+        m_totalFuelUsed = fuelUsed;
+        m_averageFuelPerLap = fuelUsed / getLaps().size();
+    }
+    
+    private void calculateAverageLapTime()
+    {
+        
     }
 
     public int getSeason() {
@@ -67,4 +160,34 @@ public class Race {
         return m_fuelLeft;
     }
 
+    public boolean getWasWetRace() {
+        return m_wetRace;
+    }
+
+    public boolean getHadCarProblem() {
+        return m_carProblem;
+    }
+
+    public int getTotalFuelUsed() {
+        return m_totalFuelUsed;
+    }
+
+    public int getAverageHumidity() {
+        return m_averageHumidity;
+    }
+
+    public int getAverageTemperature() {
+        return m_averageTemperature;
+    }
+
+    public int getAverageFuelPerLap() {
+        return m_averageFuelPerLap;
+    }
+
+    public int getAverageTyreWearPerLap() {
+        return m_averageTyreWearPerLap;
+    }
+
+    
+    
 }
