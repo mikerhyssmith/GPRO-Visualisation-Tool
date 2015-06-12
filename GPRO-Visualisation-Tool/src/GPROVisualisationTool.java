@@ -12,6 +12,7 @@ public class GPROVisualisationTool {
 		UserInterface UI = new UserInterface();
 		UI.setPreferredSize(new Dimension(1024,768));
 		UI.pack();
+		UI.initComponents();
 		UI.setVisible(true);
 	}
 

@@ -2,6 +2,7 @@ package userInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -12,14 +13,14 @@ import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
 import com.alee.laf.menu.WebMenuItem;
 
-public class UserInterface extends JFrame implements UIElement {
+public  class UserInterface extends JFrame implements UIElement {
 	
 	
 
 	public UserInterface() {
 		WebLookAndFeel.install();
 		this.setLayout(new BorderLayout());
-		initComponents();
+		
 	}
 	
 	public void initComponents(){
@@ -52,16 +53,17 @@ public class UserInterface extends JFrame implements UIElement {
              }
          } );
          setJMenuBar ( menuBar );
+         
+         JPanel eastFillerPanel = new JPanel();
+         eastFillerPanel.setSize((int) (this.getSize().getWidth()/0.01),this.getSize().height);
+         eastFillerPanel.setVisible(true);
+         this.add(eastFillerPanel,BorderLayout.EAST);
+         
 		
-         DisplayArea displayArea = new DisplayArea();
-         displayArea.setSize(800, 800);
-         JPanel test = new JPanel();
-         test.setBackground(Color.WHITE);
-         JPanel test2 = new JPanel();
-         test2.setBackground(Color.RED);
-         ComparisonPanel cp = new ComparisonPanel(test,test2, displayArea.getSize());
-         this.add(cp, BorderLayout.CENTER);
+         DisplayArea displayArea = new DisplayArea(this);
+         displayArea.setPreferredSize(new Dimension((int) (this.getSize().getWidth()*0.7), this.getHeight()));
          displayArea.setVisible(true);
-         cp.setVisible(true);
+         this.add(displayArea);
+        
 	}
 }
