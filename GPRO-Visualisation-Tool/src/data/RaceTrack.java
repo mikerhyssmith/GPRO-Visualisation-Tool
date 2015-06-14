@@ -1,6 +1,9 @@
 package data;
 
-public class RaceTrack {
+import java.io.Serializable;
+
+public class RaceTrack implements Serializable {
+    private static final long serialVersionUID = 3924515276085632600L;
 
     public enum difficultyListing 	{ na, VeryLow, Low, Medium, High, VeryHigh }
     public enum suspensionListing 	{ na, Soft, Medium, Hard }

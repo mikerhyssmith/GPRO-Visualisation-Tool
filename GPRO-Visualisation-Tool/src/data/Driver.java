@@ -13,4 +13,21 @@ public class Driver {
         m_previousSkills = skills;
     }
     
+    public String getName()
+    {
+        return m_name;
+    }
+    
+    public ArrayList<DriverSkills> getSkills()
+    {
+       return m_previousSkills;
+    }
+    
+    public DriverSkills getCurrentSkills()
+    {
+        if(!(m_previousSkills.size() > 0))
+            return null;
+        return m_previousSkills.get(0);
+    }
+    
 }

@@ -16,6 +16,14 @@ public class TrackParser {
     /* Main static method to gain a new listing of GPRO tracks */
     public static ArrayList<RaceTrack> getTracks()
     {
+        ArrayList<RaceTrack> tracks = FileHandler.readTrackFiles();
+        if(!(tracks.size() > 0))
+            tracks = downloadRaceTracks();
+        return tracks;
+    }
+    
+    private static ArrayList<RaceTrack> downloadRaceTracks()
+    {
         ArrayList<RaceTrack> tracks = new ArrayList<RaceTrack>();
         ArrayList<String> trackURLS = TrackListParser.getTrackUrls();
         for(String url : trackURLS)
@@ -25,6 +33,8 @@ public class TrackParser {
             if(track != null)
                 tracks.add(track);
         }
+        // Write these to file
+        FileHandler.writeRaceTracks(tracks);
         return tracks;
     }
 
@@ -132,6 +142,17 @@ public class TrackParser {
             {
                 for(Node body : html.childNodes())
                 {
+                    if(body.nodeName() == "head")
+                    {
+                        for(Node head : body.childNodes())
+                        {
+                            if(head.nodeName() == "title")
+                            {
+                                Element element = (Element) head;
+                                raceName = element.text().trim().split("-")[1].trim();
+                            }
+                        }
+                    }
                     if(body.nodeName() == "body")
                     {
                         for(Node div : body.childNodes())
