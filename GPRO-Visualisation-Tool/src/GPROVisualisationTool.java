@@ -15,5 +15,4 @@ public class GPROVisualisationTool {
 		UI.initComponents();
 		UI.setVisible(true);
 	}
-
 }

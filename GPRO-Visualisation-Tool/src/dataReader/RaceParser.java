@@ -155,10 +155,11 @@ public class RaceParser {
             Pair<Integer, Integer> atEnd		= parseEndTable				(tables.get(tableFinish));
             int endingTyres						= atEnd.first;
             int endingFuel						= atEnd.second;
-            //This is required later String name 						= description.first;
+            //This is required later 
+            String name     					= description.first;
             int season							= description.second;
 
-            race = new Race(season, laps, pitstops, risks, setup, partsWear, startingFuel, endingTyres, endingFuel);
+            race = new Race(name, season, laps, pitstops, risks, setup, partsWear, startingFuel, endingTyres, endingFuel);
         }
         return race;
     }
@@ -191,6 +192,10 @@ public class RaceParser {
         if(list.length == 2)
         {
             title = list[0];
+            if(title.split("\\(").length > 1)
+            {
+                title = title.split("\\(")[0];
+            }
             String temp = list[1].replace("Season", "");
             season = Integer.parseInt(temp.substring(2, temp.length()));
         }
