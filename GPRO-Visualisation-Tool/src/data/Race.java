@@ -108,17 +108,17 @@ public class Race {
     
     private void calculateAverageTyreWearPerLap()
     {
-        int tyreWear = 0;
-        int lapTyresReplaced = 0;
-        int lastTyreReading = 100;
+        int originalTyreCondition = 100;
+        int totalTyreWear = 0;
+        int pittedLap = 0;
         for(Pit pit : getPitstops())
         {
-            int tyresWornLevel = lastTyreReading - pit.getTyreCondition();
-            int lapDistance = pit.getLap() - lapTyresReplaced;
-            lapTyresReplaced = pit.getLap();
-            tyreWear = tyreWear + (lapDistance / tyresWornLevel);
+            int pitStopTyresCondition = pit.getTyreCondition();
+            int lapsCovered = pit.getLap() - pittedLap;
+            int stintTyreWear = originalTyreCondition - pitStopTyresCondition;
+            totalTyreWear = totalTyreWear + stintTyreWear / lapsCovered;
         }
-        m_averageTyreWearPerLap = tyreWear / (getPitstops().size() + 1);
+        m_averageTyreWearPerLap = totalTyreWear / getPitstops().size();
     }
     
     private void calculateAverageLapTime()

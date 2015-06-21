@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import data.RaceTrack;
+import data.User;
 
 /* File to handle the Web Request to download a html page */
 public class FileHandler {
@@ -20,11 +21,17 @@ public class FileHandler {
     private static final String mainTrackWebPageURL = domainUrl + "ViewTracks.asp";
     private static final String driversMarket       = "DriversMarket/DriversMarket.xml";
     
-    private static final String raceFilesDir        = "Races";
     private static final String raceFilesExtension  = ".xls";
+    private static final String trackFileExtension  = ".track";
+    private static final String driverFileExtension = ".xls";
+    private static final String usersFileExtention  = ".user";
     
     private static final String trackFilesDir       = "Tracks";
-    private static final String trackFileExtension  = ".track";
+    private static final String usersDir            = "Users";
+    
+    private static String usersDir(String username) { return usersDir + "/" + username; };
+    private static String userRaceFiles(String username) { return usersDir(username) + "/Races"; }
+    private static String userDriverFiles(String username) { return usersDir(username) + "/Driver"; }
 
     public static String downloadRaceListPage()
     {
@@ -40,6 +47,11 @@ public class FileHandler {
     {
         for(RaceTrack track : tracks)
             writeFile(track, trackFilesDir + "/" + track.getName() + trackFileExtension);
+    }
+    
+    public static void writeUser(User user)
+    {
+        writeFile(user, usersDir(user.getName()) + "/" + user.getName() + usersFileExtention);
     }
     
     public static ArrayList<RaceTrack> readTrackFiles()
@@ -60,10 +72,37 @@ public class FileHandler {
         return tracks;
     }
     
-    public static ArrayList<String> readRaceFiles()
+    public static ArrayList<User> readUserFiles()
+    {
+        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<String> userFiles = new ArrayList<String>();
+        ArrayList<String> userDirectories = FileHandler.collectDirectories(usersDir);
+        for(String dir : userDirectories)
+        {
+            ArrayList<String> files = FileHandler.collectFiles(dir, usersFileExtention);
+            if(files.size() > 0)
+            {
+                userFiles.add(files.get(0));
+            }
+        }
+        @SuppressWarnings("unchecked")
+        Class<User> User = (Class<data.User>) new User(null).getClass();
+        if(userFiles.size() > 0)
+        {
+            for(String file : userFiles)
+            {
+                User user = readFile(file, User);
+                if(user != null)
+                    users.add(user);
+            }
+        }
+        return users;
+    }
+    
+    public static ArrayList<String> readRaceFiles(User user)
     {
         ArrayList<String> xmlStreams = new ArrayList<String>();
-        ArrayList<String> files = FileHandler.collectFiles(raceFilesDir, raceFilesExtension);
+        ArrayList<String> files = FileHandler.collectFiles(userRaceFiles(user.getName()), raceFilesExtension);
         if(files.size() > 0)
         {
             for(String file : files)
@@ -77,6 +116,7 @@ public class FileHandler {
         return readFile(driversMarket);
     }
     
+    
     private static ArrayList<String> collectFiles(String directory, String fileExtension)
     {
         ArrayList<String> files = new ArrayList<String>();
@@ -89,6 +129,19 @@ public class FileHandler {
             } 
         }
         return files;
+    }
+    
+    private static ArrayList<String> collectDirectories(String directory)
+    {
+        ArrayList<String> directories = new ArrayList<String>();
+        File dir = new File(directory);
+        
+        for (final File fileEntry : dir.listFiles()) {
+            if (fileEntry.exists() && fileEntry.isDirectory()) {
+                directories.add(directory + "/" + fileEntry.getName());
+            } 
+        }
+        return directories;
     }
     
     public static void writeFile(Object object, String fileName)

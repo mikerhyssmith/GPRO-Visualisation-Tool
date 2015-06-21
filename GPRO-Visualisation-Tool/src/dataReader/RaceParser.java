@@ -14,6 +14,7 @@ import data.Pit;
 import data.Race;
 import data.Risks;
 import data.Setup;
+import data.User;
 import data.Wear;
 import data.Lap.Event;
 import data.Lap.Tyres;
@@ -94,10 +95,10 @@ public class RaceParser {
     private static final int endRaceFuel		= 2;
 
 
-    public static ArrayList<Race> getRaces()
+    public static ArrayList<Race> getRaces(User user)
     {
         ArrayList<Race> races = new ArrayList<Race>();
-        ArrayList<String> xmlStreams = FileHandler.readRaceFiles();
+        ArrayList<String> xmlStreams = FileHandler.readRaceFiles(user);
         for(String stream : xmlStreams)
         {
             Race race = parseRace(stream);
@@ -415,25 +416,34 @@ public class RaceParser {
                 }
                 if(elements.size() == pitColumnCount )
                 {
-                    int number 			= elements.size();
-                    String lapDesc 		= 						(elements.get(pitLap));
-                    Reason reason 		= Pit.reasonObject		(elements.get(pitReason));
-                    int tyreCondition	= Integer.parseInt		(elements.get(pitTyresCondition));
-                    int fuelLeft		= Integer.parseInt		(elements.get(pitFuelLeft));
-                    double time			= Double.parseDouble	(elements.get(pitTime));
-                    int refil			= 0;
-
+                    int number 			           = elements.size();
+                    String lapDesc 		           = (elements.get(pitLap));
+                    ArrayList<Reason> reasons 	   = parsePitReasons(elements.get(pitReason));
+                    int tyreCondition	           = Integer.parseInt		(elements.get(pitTyresCondition));
+                    int fuelLeft		           = Integer.parseInt		(elements.get(pitFuelLeft));
+                    double time			           = Double.parseDouble	(elements.get(pitTime));
+                    int refil			           = 0;
                     if(!elements.get(pitRefil).contains("No refill"))
                         refil = Integer.parseInt		(elements.get(pitRefil).replace("liters", "").trim());
 
                     String temp = lapDesc.substring(lapDesc.indexOf("Lap")+4, lapDesc.length()-2);
                     int lap = Integer.parseInt(temp);
 
-                    pits.add(new Pit(number, lap, reason, tyreCondition, fuelLeft, refil, time));
+                    pits.add(new Pit(number, lap, reasons, tyreCondition, fuelLeft, refil, time));
                 }
             }
         }
         return pits;
+    }
+    
+    private static ArrayList<Reason> parsePitReasons(String string)
+    {
+        ArrayList<Reason> reasons = new ArrayList<Reason>();
+        for(String reason : string.split(","))
+        {
+            reasons.add(Pit.reasonObject(reason));
+        }
+        return reasons;
     }
 
     private static Pair<Integer, Integer> parseEndTable(Node table)

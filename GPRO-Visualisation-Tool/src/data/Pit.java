@@ -1,22 +1,24 @@
 package data;
 
+import java.util.ArrayList;
+
 public class Pit {
 
     public enum Reason { na, Tyres, Fuel, Weather }
 
     private int m_pitNumber;
     private int m_lap;
-    private Reason m_reason;
+    ArrayList<Reason> m_reasons;
     private int m_tyreCondition;
     private int m_fuelLeft;
     private int m_refil;
     private double m_pitTime;
 
-    public Pit(int pitNumber, int lap, Reason reason, int tyreCondition, int fuelLeft, int refil, double pitTime)
+    public Pit(int pitNumber, int lap, ArrayList<Reason> reasons, int tyreCondition, int fuelLeft, int refil, double pitTime)
     {
         m_pitNumber 		= pitNumber;
         m_lap 				= lap;
-        m_reason 			= reason;
+        m_reasons 			= reasons;
         m_tyreCondition 	= tyreCondition;
         m_fuelLeft 			= fuelLeft;
         m_refil 			= refil;
@@ -31,8 +33,8 @@ public class Pit {
         return m_lap;
     }
 
-    public Reason getReason() {
-        return m_reason;
+    public ArrayList<Reason> getReasons() {
+        return m_reasons;
     }
 
     public int getTyreCondition() {
