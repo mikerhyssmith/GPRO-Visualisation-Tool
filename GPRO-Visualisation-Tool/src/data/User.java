@@ -6,6 +6,7 @@ import dataReader.FileHandler;
 
 public class User implements Serializable{
     
+    private static final long serialVersionUID = 479975101799943293L;
     private String m_name;
     protected ArrayList<Race> m_races;
     protected ArrayList<Driver> m_drivers;

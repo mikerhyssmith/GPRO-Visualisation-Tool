@@ -121,12 +121,15 @@ public class FileHandler {
     {
         ArrayList<String> files = new ArrayList<String>();
         File dir = new File(directory);
-
-        for (final File fileEntry : dir.listFiles()) {
-            if (fileEntry.exists() &&!fileEntry.isDirectory() && fileEntry.getName() != "") {
-                if(fileEntry.getName().endsWith(fileExtension))
-                    files.add(directory + "/" + fileEntry.getName());
-            } 
+        if(dir.isDirectory())
+        {
+            for (final File fileEntry : dir.listFiles()) {
+                if (fileEntry.exists() &&!fileEntry.isDirectory() && fileEntry.getName() != "") 
+                {
+                    if(fileEntry.getName().endsWith(fileExtension))
+                        files.add(directory + "/" + fileEntry.getName());
+                } 
+            }   
         }
         return files;
     }
