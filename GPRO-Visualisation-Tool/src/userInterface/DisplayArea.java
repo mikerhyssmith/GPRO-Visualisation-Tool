@@ -13,8 +13,7 @@ public class DisplayArea extends JPanel {
 	
 	public DisplayArea(JFrame frame){
 		m_frame = frame;
-		this.setBackground(Color.white);
-		this.setBorder(BorderFactory.createLineBorder(Color.black));
+		//this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	
