@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import data.*;
 
-public class CreateDataSet {
+public class AxisHandler {
     
     public static ArrayList<Integer> getFuelLeftAtEndOfRace(ArrayList<Race> races)
     {

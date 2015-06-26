@@ -42,6 +42,11 @@ public class Data {
     {
         return m_races;
     }
+    
+    public ArrayList<User> users()
+    {
+        return m_users;
+    }
 
     private void Initialise()
     {   

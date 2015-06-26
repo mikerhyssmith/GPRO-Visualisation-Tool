@@ -2,8 +2,8 @@ package data;
 
 import java.util.ArrayList;
 
-import data.Lap.Event;
 import data.Lap.Weather;
+import data.Lap.Event;
 
 public class Race {
     protected RaceTrack m_raceTrack;
@@ -15,6 +15,7 @@ public class Race {
     private Risks m_risks;
     private Setup m_setup;
     private PartsWear m_partsWear;
+    private Lap.Tyres m_dryTyres;
 
     private int m_startingFuel;
     private int m_tyresAtEnd;
@@ -75,7 +76,10 @@ public class Race {
     private void calculateWetRace()
     {
         for(Lap lap: getLaps())
-            if(lap.getWeather() == Weather.Rain) { m_wetRace = true; return; }
+        {
+            if(lap.getWeather() == Weather.Rain) { m_wetRace = true; }
+            else { m_dryTyres = lap.getTyres(); }
+        }
     }
     
     private void calculateTechicalProblem()
@@ -225,5 +229,9 @@ public class Race {
     
     public float getAverageLapTime() {
         return m_averageLapTime;
+    }
+    
+    public Lap.Tyres getDryTyres() {
+        return m_dryTyres;
     }
 }

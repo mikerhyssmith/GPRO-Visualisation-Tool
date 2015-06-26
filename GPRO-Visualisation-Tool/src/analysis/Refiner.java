@@ -1,0 +1,44 @@
+package analysis;
+
+import java.util.ArrayList;
+import data.*;
+
+public class Refiner {
+
+    public static ArrayList<Race> removeWetRaces(ArrayList<Race> races)
+    {
+        for(Race race: races)
+            if(race.getWasWetRace()) { races.remove(race); }
+        return races;
+    }
+    
+    public static ArrayList<Race> refineTyres(ArrayList<Race> races, Lap.Tyres tyres)
+    {
+        for(Race race : races)
+        {
+            if(race.getDryTyres() != tyres)
+                races.remove(race);
+        }
+        return races;
+    }
+    
+    public static ArrayList<Race> refineSeason(ArrayList<Race> races, int seasonNo)
+    {
+        for(Race race: races)
+        {
+            if(race.getSeason() != seasonNo)
+                races.remove(race);
+        }
+        return races;
+    }
+    
+    public static ArrayList<Race> refineRaceName(ArrayList<Race> races, String raceName)
+    {
+        for(Race race: races)
+        {
+            if(race.getName() != raceName)
+                races.remove(race);
+        }
+        return races;
+    }
+}
