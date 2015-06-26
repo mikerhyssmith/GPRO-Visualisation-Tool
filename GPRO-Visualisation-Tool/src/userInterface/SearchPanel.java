@@ -3,6 +3,7 @@ package userInterface;
 import java.awt.Component;
 import java.awt.FlowLayout;
 
+import javax.swing.Box;
 import javax.swing.JPanel;
 
 import com.alee.extended.button.WebSwitch;
@@ -31,6 +32,8 @@ public class SearchPanel extends JPanel implements UIElement {
 		//distanceSlider.setPreferredSize(new Dimension(240, distanceSlider.getPreferredSize().height));
         distanceSlider.setMinimum(200);
         distanceSlider.setMaximum(400);
+        distanceSlider.setValue(distanceSlider.getMinimum());
+        distanceSlider.setUpperValue(distanceSlider.getMaximum());
         
         WebLabel tempLabel = new WebLabel ( "Race Temperature" );
         
@@ -38,8 +41,10 @@ public class SearchPanel extends JPanel implements UIElement {
 		//tempSlider.setPreferredSize(new Dimension(240, distanceSlider.getPreferredSize().height));
         tempSlider.setMinimum(0);
         tempSlider.setMaximum(50);
+        tempSlider.setValue(tempSlider.getMinimum());
+        tempSlider.setUpperValue(tempSlider.getMaximum());
         
-        WebLabel errorLabel = new WebLabel("Error Occured: ");
+        WebLabel errorLabel = new WebLabel("Problem Occured: ");
         WebSwitch errorSwitch = new WebSwitch ();
         errorSwitch.setRound ( 11 );
         
@@ -76,31 +81,35 @@ public class SearchPanel extends JPanel implements UIElement {
         
         this.add(distLabel);
         this.add(distanceSlider);
-       
+        this.add(Box.createVerticalGlue());
         
         this.add(tempLabel);
         this.add(tempSlider);
+        this.add(Box.createVerticalGlue());
         
         this.add(errorLabel);
         errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         this.add(errorSwitch);
         errorSwitch.setAlignmentX(Component.CENTER_ALIGNMENT);
-       
+        this.add(Box.createVerticalGlue());
         
         this.add(mistakeLabel);
         mistakeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         this.add(mistakeSwitch);
         mistakeSwitch.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+        this.add(Box.createVerticalGlue());
         
         
         
         this.add(tyreCollapsePane);
+        this.add(Box.createVerticalGlue());
         this.add(tyreUsageCollapsePane);
+        this.add(Box.createVerticalGlue());
         this.add(fuelConsumptionCollapsePane);
-
+        this.add(Box.createVerticalGlue());
+        
         
         WebButton button1 = new WebButton ( "Search" );
         button1.setMoveIconOnPress ( true );
