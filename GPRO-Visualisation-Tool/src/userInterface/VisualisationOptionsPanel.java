@@ -2,9 +2,9 @@ package userInterface;
 
 import javax.swing.JPanel;
 
-public class ResultsPanel extends JPanel implements UIElement {
+public class VisualisationOptionsPanel extends JPanel implements UIElement {
 	
-	public ResultsPanel(){
+	public VisualisationOptionsPanel(){
 		
 		initComponents();
 	}

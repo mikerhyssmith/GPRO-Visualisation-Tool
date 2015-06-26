@@ -63,45 +63,19 @@ public  class UserInterface extends JFrame implements UIElement {
          eastFillerPanel.setVisible(true);
          this.add(eastFillerPanel,BorderLayout.EAST);
          
-		
-         ArrayList<Double> x = new ArrayList<Double>();
-         x.add(0,1.0);
-         x.add(1,7.5);
-         x.add(2,8.0);
-         x.add(3,12.0);
-         x.add(4,23.0);
-         x.add(5,28.0);
-         x.add(6,39.0);
-         x.add(7,-41.0);
-         
-         
-         ArrayList<Double> y = new ArrayList<Double>();
-         y.add(0,1.0);
-         y.add(1,1.6);
-         y.add(2,7.4);
-         y.add(3,19.6);
-         y.add(4,29.6);
-         y.add(5,24.0);
-         y.add(6,9.0);
-         y.add(7,-0.6);
+         ManagePanel manPanel = new ManagePanel();
+         Dimension manageAreaSize = new Dimension((int) (this.getWidth()*0.20), this.getHeight());
+         manPanel.setPreferredSize(manageAreaSize);
+         this.add(manPanel,BorderLayout.WEST);
          
         
          
          DisplayArea displayArea = new DisplayArea(this);
          Dimension displayAreaSize = new Dimension((int) (this.getSize().getWidth()*0.7), this.getHeight());
          displayArea.setPreferredSize(displayAreaSize);
-         displayArea.setBackground(Color.red);
-         System.out.println(displayAreaSize);
-         LineChart<Double> l = new LineChart<Double>(x,y,"name","testX","testY",displayAreaSize);
-         l.setBackground(Color.blue);
-         l.createDataTable();
-         l.plotLineGraph();
-         displayArea.add(l);
          displayArea.setVisible(true);
          this.add(displayArea,BorderLayout.CENTER);
-         
          this.pack();
-         System.out.println(displayArea.getSize());
         
 	}
 }
