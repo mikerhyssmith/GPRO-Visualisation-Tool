@@ -234,4 +234,8 @@ public class Race {
     public Lap.Tyres getDryTyres() {
         return m_dryTyres;
     }
+    
+    public RaceTrack getTrack() {
+        return m_raceTrack;
+    }
 }

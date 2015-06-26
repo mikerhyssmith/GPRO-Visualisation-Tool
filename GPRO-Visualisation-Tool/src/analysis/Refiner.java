@@ -41,4 +41,14 @@ public class Refiner {
         }
         return races;
     }
+    
+    public static ArrayList<Race> refineRaceDistance(ArrayList<Race> races, float min, float max)
+    {
+        for(Race race : races)
+        {
+            float distance = race.getTrack().getDistance();
+            if(distance < min || distance > max) { races.remove(race); }
+        }
+        return races;
+    }
 }
