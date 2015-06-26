@@ -1,14 +1,17 @@
 package visualisation;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
-import de.erichseifert.gral.data.DataTable;
-import de.erichseifert.gral.plots.XYPlot;
-import de.erichseifert.gral.plots.lines.DefaultLineRenderer2D;
-import de.erichseifert.gral.plots.lines.LineRenderer;
-import de.erichseifert.gral.ui.InteractivePanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class  LineChart<T extends Number> extends JPanel {
 	
@@ -16,51 +19,69 @@ public class  LineChart<T extends Number> extends JPanel {
 	private ArrayList<T> yValues;
 	private String xAxisLabel;
 	private String yAxisLabel;
-	private DataTable data;
+	private String title;
+	private XYSeries data;
+	private JFreeChart chart;
+	private XYSeriesCollection dataset;
+	private Dimension chartSize;
 	
-	public  LineChart(ArrayList<T> xValues, ArrayList<T> yValues, String xAxisLabel, String yAxisLabel){
+	public  LineChart(ArrayList<T> xValues, ArrayList<T> yValues,String title, String xAxisLabel, String yAxisLabel,Dimension d){
 		
 			this.xValues = xValues;
 			this.yValues = yValues;
 			this.xAxisLabel = xAxisLabel;
 			this.yAxisLabel = yAxisLabel;
+			this.title = title;
+			this.chartSize = d;
 			
-			data = new DataTable(Float.class,Float.class);
+			data = new XYSeries("Series 1");
+			dataset = new XYSeriesCollection();
 		
 	}
 	
 	public void createDataTable(){
-		for(T i : xValues){
-			for(T j : yValues){
-				
-				float xVal;
-				float yVal;
-				try{
-					xVal = (Float) i;
-					yVal = (Float) j;
-					data.add(xVal, yVal);
-				}catch(NumberFormatException e){
-					System.err.println("Wrong graph data format");
-				}
-				
-			}
+		
+		Iterator<T> xIter = xValues.iterator();
+		Iterator<T> yIter = yValues.iterator();
+		
+		while(xIter.hasNext() && yIter.hasNext()){
+			Double x = (Double) xIter.next();
+			Double y = (Double) yIter.next();
+			data.add(x, y);
 		}
+		
+		dataset.addSeries(data);
+	
 	}
 	
 	public void plotLineGraph(){
-		XYPlot plot = new XYPlot(data);
-		InteractivePanel p = new InteractivePanel(plot);
-		this.add(p);
-		LineRenderer lines = new DefaultLineRenderer2D();
-		plot.setLineRenderer(data, lines);
-		p.setVisible(true);
+		chart = ChartFactory.createXYLineChart(
+		            title,      // chart title
+		            xAxisLabel,                      // x axis label
+		            yAxisLabel,                      // y axis label
+		            dataset,                  // data
+		            PlotOrientation.VERTICAL,
+		            true,                     // include legend
+		            true,                     // tooltips
+		            false                     // urls
+		        );
+		
+		
+		ChartPanel panel = new ChartPanel(chart);
+		panel.setSize(chartSize);
+		this.setSize(chartSize);
+		this.setPreferredSize(chartSize);
+		this.add(panel);
 		
 	}
 	
+	/**
 	public void plotScatterGraph(){
 		
 		XYPlot plot = new XYPlot(data);
 		this.add(new InteractivePanel(plot));
 	}
+	*/
 
+	
 }
