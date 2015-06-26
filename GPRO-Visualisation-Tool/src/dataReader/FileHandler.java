@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import data.RaceTrack;
 import data.User;
@@ -31,7 +32,7 @@ public class FileHandler {
     
     private static String usersDir(String username) { return usersDir + "/" + username; };
     private static String userRaceFiles(String username) { return usersDir(username) + "/Races"; }
-    private static String userDriverFiles(String username) { return usersDir(username) + "/Driver"; }
+    private static String userDriverFiles(String username) { return usersDir(username) + "/Drivers"; }
 
     public static String downloadRaceListPage()
     {
@@ -43,10 +44,10 @@ public class FileHandler {
         return readFile(domainUrl + url);
     }
     
-    public static void writeRaceTracks(ArrayList<RaceTrack> tracks)
+    public static void writeRaceTracks(HashMap<String, RaceTrack> tracks)
     {
-        for(RaceTrack track : tracks)
-            writeFile(track, trackFilesDir + "/" + track.getName() + trackFileExtension);
+        for(String trackName : tracks.keySet())
+            writeFile(tracks.get(trackName), trackFilesDir + "/" + trackName + trackFileExtension);
     }
     
     public static void writeUser(User user)
@@ -54,9 +55,9 @@ public class FileHandler {
         writeFile(user, usersDir(user.getName()) + "/" + user.getName() + usersFileExtention);
     }
     
-    public static ArrayList<RaceTrack> readTrackFiles()
+    public static HashMap<String, RaceTrack> readTrackFiles()
     {
-        ArrayList<RaceTrack> tracks = new ArrayList<RaceTrack>();
+        HashMap<String, RaceTrack> tracks = new HashMap<String, RaceTrack>();
         ArrayList<String> files = FileHandler.collectFiles(trackFilesDir, trackFileExtension);
         @SuppressWarnings("unchecked")
         Class<RaceTrack> RaceTrack = (Class<data.RaceTrack>) new RaceTrack(null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, null, null, null).getClass();
@@ -66,7 +67,7 @@ public class FileHandler {
             {
                 RaceTrack track = readFile(file, RaceTrack);
                 if(track != null)
-                    tracks.add(track);
+                    tracks.put(track.getName(), track);
             }
         }
         return tracks;
@@ -116,6 +117,17 @@ public class FileHandler {
         return readFile(driversMarket);
     }
     
+    public static ArrayList<String> readDriverFiles(User user)
+    {
+        ArrayList<String> xmlStreams = new ArrayList<String>();
+        ArrayList<String> files = FileHandler.collectFiles(userDriverFiles(user.getName()), driverFileExtension);
+        if(files.size() > 0)
+        {
+            for(String file : files)
+                xmlStreams.add(FileHandler.readFile(file));
+        }
+        return xmlStreams;
+    }
     
     private static ArrayList<String> collectFiles(String directory, String fileExtension)
     {

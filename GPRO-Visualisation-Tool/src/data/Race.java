@@ -6,6 +6,8 @@ import data.Lap.Event;
 import data.Lap.Weather;
 
 public class Race {
+    protected RaceTrack m_raceTrack;
+    
     private String m_name;
     private int m_season;
     private ArrayList<Lap> m_laps;
@@ -22,10 +24,15 @@ public class Race {
     private boolean m_wetRace;
     private boolean m_carProblem;
     private int m_totalFuelUsed;
+    // Need total race time 
     private float m_averageHumidity;
     private float m_averageTemperature;
     private float m_averageFuelPerLap;
+    private float m_averageFuelPerKM;
     private float m_averageTyreWearPerLap;
+    private float m_averageTyreWearPerKM;
+    private float m_totalRaceTime;
+    private float m_averageLapTime;
     
     public final static int fuelTankSize = 180;
 
@@ -48,20 +55,21 @@ public class Race {
         m_averageHumidity = 0;
         m_averageTemperature = 0;
         m_averageFuelPerLap = 0;
+        m_averageFuelPerKM = 0;
         m_averageTyreWearPerLap = 0;
-
-        analyseRace();
+        m_averageTyreWearPerKM = 0;
+        m_totalRaceTime = 0;
     }
     
-    private void analyseRace()
+    public void analyseRace()
     {
         calculateWetRace();
         calculateTechicalProblem();
         calculateTotalFuelUsed();
         calculateAverageHimidity();
         calculateAverageTemperature();
-        calculateAverageTyreWearPerLap();
-        calculateAverageLapTime();
+        calculateAverageTyreWear();
+        calculateAverageTime();
     }
     
     private void calculateWetRace()
@@ -88,6 +96,7 @@ public class Race {
         fuelUsed = fuelUsed + ( currentFuelLoad - m_fuelLeft );
         m_totalFuelUsed = fuelUsed;
         m_averageFuelPerLap = fuelUsed / getLaps().size();
+        m_averageFuelPerKM = m_averageFuelPerLap / m_raceTrack.getLapDistance();
     }
     
     private void calculateAverageHimidity()
@@ -106,7 +115,7 @@ public class Race {
         m_averageTemperature = total / getLaps().size();
     }
     
-    private void calculateAverageTyreWearPerLap()
+    private void calculateAverageTyreWear()
     {
         int originalTyreCondition = 100;
         int totalTyreWear = 0;
@@ -119,11 +128,18 @@ public class Race {
             totalTyreWear = totalTyreWear + stintTyreWear / lapsCovered;
         }
         m_averageTyreWearPerLap = totalTyreWear / getPitstops().size();
+        m_averageTyreWearPerKM = m_averageTyreWearPerLap / m_raceTrack.getLapDistance();
     }
     
-    private void calculateAverageLapTime()
+    private void calculateAverageTime()
     {
-        
+        float totalTime = 0;
+        for(Lap lap : getLaps())
+        {
+            totalTime = totalTime + lap.getLapTime();
+        }
+        m_totalRaceTime = totalTime;
+        m_averageLapTime = totalTime / (getLaps().size() - 1);
     }
     
     public String getName()
@@ -190,11 +206,24 @@ public class Race {
     public float getAverageFuelPerLap() {
         return m_averageFuelPerLap;
     }
+    
+    public float getAverageFuelPerKM() {
+        return m_averageFuelPerKM;
+    }
 
     public float getAverageTyreWearPerLap() {
         return m_averageTyreWearPerLap;
+    } 
+    
+    public float getAverageTyreWearPerKM() {
+        return m_averageTyreWearPerKM;
     }
-
     
+    public float getTotalRaceTime() {
+        return m_totalRaceTime;
+    }
     
+    public float getAverageLapTime() {
+        return m_averageLapTime;
+    }
 }

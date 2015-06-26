@@ -195,7 +195,7 @@ public class RaceParser {
             title = list[0];
             if(title.split("\\(").length > 1)
             {
-                title = title.split("\\(")[0];
+                title = title.split("\\(")[0].trim();
             }
             String temp = list[1].replace("Season", "");
             season = Integer.parseInt(temp.substring(2, temp.length()));
@@ -225,7 +225,7 @@ public class RaceParser {
                 if(elements.size() == lapColumnCount )
                 {
                     int lapNum 				= Integer.parseInt	(elements.get(lapNumber));
-                    String lapT 			= 					(elements.get(lapTime));
+                    float lapT 			    = parseLapTime	(elements.get(lapTime));
                     int position 			= Integer.parseInt	(elements.get(lapPos));
                     Tyres tyres				= Lap.tyresObject	(elements.get(lapTyres));
                     Weather weather			= Lap.weatherObject	(elements.get(lapWeather));
@@ -238,6 +238,18 @@ public class RaceParser {
             }
         }
         return laps;
+    }
+    
+    private static float parseLapTime(String string)
+    {
+        float time = 0;
+        String[] array = string.split(":");
+        if(array.length == 2)
+        {
+            time = time + Integer.parseInt(array[0]) * 60;
+            time = time + Float.parseFloat(array[1]);
+        }
+        return time;
     }
 
     private static Risks parseRiskTable(Node table)

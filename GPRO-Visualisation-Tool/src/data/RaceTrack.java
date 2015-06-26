@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class RaceTrack implements Serializable {
     private static final long serialVersionUID = 3924515276085632600L;
@@ -9,16 +10,18 @@ public class RaceTrack implements Serializable {
     public enum suspensionListing 	{ na, Soft, Medium, Hard }
     public enum overtakingListing 	{ na, VeryEasy, Easy, Normal, Hard, VeryHard }
     public enum categoryListing 	{ na, NonF1, F1 }
+    
+    protected ArrayList<Race>   m_races;
 
     private String 				m_name;
     private String 				m_url;
     private String				m_location;
-    private double 				m_distance;
+    private float 				m_distance;
     private int 				m_lapNumber;
-    private double 				m_lapDistance;
-    private double 				m_averageSpeed;
+    private float 				m_lapDistance;
+    private float 				m_averageSpeed;
     private int 				m_courners;
-    private double 				m_pitTime;
+    private float 				m_pitTime;
     private int 				m_power;
     private int 				m_handeling;
     private int 				m_acceleration;
@@ -30,10 +33,12 @@ public class RaceTrack implements Serializable {
     private difficultyListing 	m_gripLevel;
     private categoryListing 	m_category;
 
-    public RaceTrack(String name, String url, String location, double distance, int lapNumber, double lapDistance, double averageSpeed, int courners, double pitTime,
+    public RaceTrack(String name, String url, String location, float distance, int lapNumber, float lapDistance, float averageSpeed, int courners, float pitTime,
             int power, int handeling, int acceleration, difficultyListing downforce, overtakingListing overtaking, suspensionListing suspension,
             difficultyListing fuelConsumption, difficultyListing tyreWear, difficultyListing gripLevel, categoryListing category)
     {
+        m_races             = new ArrayList<Race>();
+        
         m_name 				= name;
         m_url 				= url;
         m_location			= location;
@@ -67,7 +72,7 @@ public class RaceTrack implements Serializable {
         return m_location;
     }
 
-    public double getDistance() {
+    public float getDistance() {
         return m_distance;
     }
 
@@ -75,11 +80,11 @@ public class RaceTrack implements Serializable {
         return m_lapNumber;
     }
 
-    public double getLapDistance() {
+    public float getLapDistance() {
         return m_lapDistance;
     }
 
-    public double getAverageSpeed() {
+    public float getAverageSpeed() {
         return m_averageSpeed;
     }
 
@@ -87,7 +92,7 @@ public class RaceTrack implements Serializable {
         return m_courners;
     }
 
-    public double getPitTime() {
+    public float getPitTime() {
         return m_pitTime;
     }
 
@@ -157,6 +162,11 @@ public class RaceTrack implements Serializable {
 
     public String getCategoryString() {
         return categoryListingString(m_category);
+    }
+    
+    public ArrayList<Race> getRaces()
+    {
+        return m_races;
     }
 
     public static difficultyListing difficultyListingObject(String text) 	

@@ -1,6 +1,7 @@
 package dataReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.jsoup.Jsoup;
@@ -14,24 +15,24 @@ import data.RaceTrack;
 public class TrackParser {
 
     /* Main static method to gain a new listing of GPRO tracks */
-    public static ArrayList<RaceTrack> getTracks()
+    public static HashMap<String, RaceTrack> getTracks()
     {
-        ArrayList<RaceTrack> tracks = FileHandler.readTrackFiles();
+        HashMap<String, RaceTrack> tracks = FileHandler.readTrackFiles();
         if(!(tracks.size() > 0))
             tracks = downloadRaceTracks();
         return tracks;
     }
     
-    private static ArrayList<RaceTrack> downloadRaceTracks()
+    private static HashMap<String, RaceTrack> downloadRaceTracks()
     {
-        ArrayList<RaceTrack> tracks = new ArrayList<RaceTrack>();
+        HashMap<String, RaceTrack> tracks = new HashMap<String, RaceTrack>();
         ArrayList<String> trackURLS = TrackListParser.getTrackUrls();
         for(String url : trackURLS)
         {
             String htmlStream = FileHandler.downloadRacePage(url);
             RaceTrack track = parseRaceTrack(htmlStream, url);
             if(track != null)
-                tracks.add(track);
+                tracks.put(track.getName(), track);
         }
         // Write these to file
         FileHandler.writeRaceTracks(tracks);
@@ -44,12 +45,12 @@ public class TrackParser {
         String 							name 				= new String();
         String 							url 				= new String();
         String							location 			= new String();
-        double 							distance 			= 0;
+        float 							distance 			= 0;
         int 							lapNumber 			= 0;
-        double 							lapDistance 		= 0;
-        double 							averageSpeed 		= 0;
+        float 							lapDistance 		= 0;
+        float 							averageSpeed 		= 0;
         int 							courners 			= 0;
-        double 							pitTime 			= 0;
+        float 							pitTime 			= 0;
         int 							power 				= 0;
         int 							handeling 			= 0;
         int 							acceleration 		= 0;
@@ -69,12 +70,12 @@ public class TrackParser {
             if(key.startsWith("name:"))							{ name 				= value;													}	
             else if(key.startsWith("raceURL:"))					{ url 				= value; 													}
             else if(key.startsWith("Location:"))				{ location			= value;													}
-            else if(key.startsWith("Race distance:"))			{ distance 			= Double.parseDouble(value.substring(0, value.length()-2));	}	
+            else if(key.startsWith("Race distance:"))			{ distance 			= Float.parseFloat(value.substring(0, value.length()-2));	}	
             else if(key.startsWith("Laps:"))					{ lapNumber 		= Integer.parseInt(value); 									}
-            else if(key.startsWith("Lap distance:"))			{ lapDistance 		= Double.parseDouble(value.substring(0, value.length()-3));	}
-            else if(key.startsWith("Average speed:"))			{ averageSpeed 		= Double.parseDouble(value.substring(0, value.length()-5));	}
+            else if(key.startsWith("Lap distance:"))			{ lapDistance 		= Float.parseFloat(value.substring(0, value.length()-3));	}
+            else if(key.startsWith("Average speed:"))			{ averageSpeed 		= Float.parseFloat(value.substring(0, value.length()-5));	}
             else if(key.startsWith("Number of corners:"))		{ courners 			= Integer.parseInt(value); 									}
-            else if(key.startsWith("Time in/out of pits:"))		{ pitTime 			= Double.parseDouble(value.substring(0, value.length()-1));	}
+            else if(key.startsWith("Time in/out of pits:"))		{ pitTime 			= Float.parseFloat(value.substring(0, value.length()-1));	}
             else if(key.startsWith("Power:"))					{ power				= Integer.parseInt(value); 									}
             else if(key.startsWith("Handling:"))				{ handeling			= Integer.parseInt(value); 									}
             else if(key.startsWith("Acceleration:"))			{ acceleration		= Integer.parseInt(value); 									}

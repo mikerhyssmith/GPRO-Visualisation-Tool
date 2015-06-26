@@ -7,7 +7,7 @@ public class Lap {
     public enum Event 	{ na, DriverMistake, Pit, CarProblem }
 
     private int 		m_lapNumber;
-    private String 		m_lapTime;
+    private float 		m_lapTime;
     private int 		m_position;
     private Tyres 		m_tyres;
     private Weather 	m_weather;
@@ -15,7 +15,7 @@ public class Lap {
     private int 		m_humidity;
     private Event 		m_event;
 
-    public Lap(int lapNumber, String lapTime, int position, Tyres tyres, Weather weather, int temperature, int humidity, Event event)
+    public Lap(int lapNumber, float lapTime, int position, Tyres tyres, Weather weather, int temperature, int humidity, Event event)
     {
         m_lapNumber		= lapNumber;
         m_lapTime 		= lapTime;
@@ -31,7 +31,7 @@ public class Lap {
         return m_lapNumber;
     }
 
-    public String getLapTime() {
+    public float getLapTime() {
         return m_lapTime;
     }
 

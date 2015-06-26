@@ -1,6 +1,8 @@
 package data;
 
 public class DriverSkills {
+    private int m_season;
+    private int m_race;
     private int m_overall;
     private int m_concentration;
     private int m_talent;
@@ -14,8 +16,10 @@ public class DriverSkills {
     private int m_weight;
     private int m_age;
     
-    public DriverSkills(int overall, int concentration, int talent, int aggressiveness, int experience, int technicalInsight, int stamina, int charisma, int motivation, int reputation,int weight, int age)
+    public DriverSkills(int season, int race, int overall, int concentration, int talent, int aggressiveness, int experience, int technicalInsight, int stamina, int charisma, int motivation, int reputation,int weight, int age)
     {
+        m_season = season;
+        m_race = race;
         m_overall = overall;
         m_concentration = concentration;
         m_talent = talent;
@@ -29,52 +33,62 @@ public class DriverSkills {
         m_weight = weight;
         m_age = age;
     }
+    
+    public int getSeason()
+    {
+        return m_season;
+    }
+    
+    public int getRace()
+    {
+        return m_race;
+    }
 
-    public int getM_overall() {
+    public int getoverall() {
         return m_overall;
     }
 
-    public int getM_concentration() {
+    public int getConcentration() {
         return m_concentration;
     }
 
-    public int getM_talent() {
+    public int getTalent() {
         return m_talent;
     }
 
-    public int getM_aggressiveness() {
+    public int getAggressiveness() {
         return m_aggressiveness;
     }
 
-    public int getM_experience() {
+    public int getExperience() {
         return m_experience;
     }
 
-    public int getM_technicalInsight() {
+    public int getTechnicalInsight() {
         return m_technicalInsight;
     }
 
-    public int getM_stamina() {
+    public int getStamina() {
         return m_stamina;
     }
 
-    public int getM_charisma() {
+    public int getCharisma() {
         return m_charisma;
     }
 
-    public int getM_motivation() {
+    public int getMotivation() {
         return m_motivation;
     }
 
-    public int getM_reputation() {
+    public int getReputation() {
         return m_reputation;
     }
 
-    public int getM_weight() {
+    public int getWeight() {
         return m_weight;
     }
 
-    public int getM_age() {
+    public int getAge() {
         return m_age;
     }
     
