@@ -8,15 +8,20 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import visualisation.LineChart;
 
+import com.alee.extended.statusbar.WebStatusBar;
+import com.alee.extended.statusbar.WebStatusLabel;
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
 import com.alee.laf.menu.WebMenuItem;
 
 public  class UserInterface extends JFrame implements UIElement {
+	
 	
 	
 
@@ -68,14 +73,17 @@ public  class UserInterface extends JFrame implements UIElement {
          manPanel.setPreferredSize(manageAreaSize);
          this.add(manPanel,BorderLayout.WEST);
          
-        
+      
+         //TODO add global Constants
+         StatusBar statusBar = new StatusBar();
+         this.add(statusBar,BorderLayout.SOUTH);
          
-         DisplayArea displayArea = new DisplayArea(this);
+         DisplayArea displayArea = new DisplayArea();
          Dimension displayAreaSize = new Dimension((int) (this.getSize().getWidth()*0.7), this.getHeight());
-         displayArea.setPreferredSize(displayAreaSize);
+         //displayArea.setPreferredSize(displayAreaSize);
          displayArea.setVisible(true);
          this.add(displayArea,BorderLayout.CENTER);
-         this.pack();
+         //this.pack();
         
 	}
 }

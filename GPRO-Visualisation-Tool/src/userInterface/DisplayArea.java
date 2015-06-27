@@ -1,26 +1,36 @@
 package userInterface;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.BorderLayout;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class DisplayArea extends JPanel {
+import com.alee.laf.tabbedpane.WebTabbedPane;
+
+public class DisplayArea extends JPanel implements UIElement {
 	
-	private JFrame m_frame;
 	
-	public DisplayArea(JFrame frame){
-		m_frame = frame;
+	private WebTabbedPane tabbedPanel;
+	
+	public DisplayArea(){
+		
 		//this.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.setLayout(new BorderLayout());
+		initComponents();
 	}
 
-	
-	
+
+
 	@Override
-    public Dimension getPreferredSize() {
+	public void initComponents() {
+		WebTabbedPane tabbedPanel = new WebTabbedPane();
+		tabbedPanel.setTabPlacement ( WebTabbedPane.TOP );
+		tabbedPanel.addTab("Welcome !", new WelcomePanel());
+		this.add(tabbedPanel,BorderLayout.CENTER);
 		
-        return new Dimension( (int) (m_frame.getWidth()*0.7), m_frame.getHeight());
-    }
+	}
+	
+	public <T extends JPanel> void addTab(T tabElement){
+		tabbedPanel.addTab(tabElement.getName(), tabElement);
+	}
+	
 }
