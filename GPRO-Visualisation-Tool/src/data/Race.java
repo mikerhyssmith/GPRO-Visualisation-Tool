@@ -2,8 +2,9 @@ package data;
 
 import java.util.ArrayList;
 
-import data.Lap.Weather;
-import data.Lap.Event;
+import analysis.Constants.Weather;
+import analysis.Constants.Tyres;
+import analysis.Constants.Event;
 
 public class Race {
     protected RaceTrack m_raceTrack;
@@ -15,7 +16,7 @@ public class Race {
     private Risks m_risks;
     private Setup m_setup;
     private PartsWear m_partsWear;
-    private Lap.Tyres m_dryTyres;
+    private Tyres m_dryTyres;
 
     private int m_startingFuel;
     private int m_tyresAtEnd;
@@ -35,7 +36,6 @@ public class Race {
     private float m_totalRaceTime;
     private float m_averageLapTime;
     
-    public final static int fuelTankSize = 180;
 
     public Race(String name, int season, ArrayList<Lap> laps, ArrayList<Pit> pitstops, Risks risks, Setup setup, PartsWear partsWear, int startingFuel, int tyresAtEnd, int fuelLeft)
     {
@@ -231,7 +231,7 @@ public class Race {
         return m_averageLapTime;
     }
     
-    public Lap.Tyres getDryTyres() {
+    public Tyres getDryTyres() {
         return m_dryTyres;
     }
     

@@ -2,6 +2,7 @@ package analysis;
 
 import java.util.ArrayList;
 import data.*;
+import analysis.Constants.Tyres;
 
 public class Refiner {
 
@@ -12,7 +13,7 @@ public class Refiner {
         return races;
     }
     
-    public static ArrayList<Race> refineTyres(ArrayList<Race> races, Lap.Tyres tyres)
+    public static ArrayList<Race> refineTyres(ArrayList<Race> races, Tyres tyres)
     {
         for(Race race : races)
         {

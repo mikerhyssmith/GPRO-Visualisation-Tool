@@ -16,10 +16,11 @@ import data.Risks;
 import data.Setup;
 import data.User;
 import data.Wear;
-import data.Lap.Event;
-import data.Lap.Tyres;
-import data.Lap.Weather;
-import data.Pit.Reason;
+import analysis.Constants.Event;
+import analysis.Constants.Tyres;
+import analysis.Constants.Weather;
+import analysis.Constants.PitReason;
+import analysis.Constants;
 
 public class RaceParser {
 
@@ -227,11 +228,11 @@ public class RaceParser {
                     int lapNum 				= Integer.parseInt	(elements.get(lapNumber));
                     float lapT 			    = parseLapTime	(elements.get(lapTime));
                     int position 			= Integer.parseInt	(elements.get(lapPos));
-                    Tyres tyres				= Lap.tyresObject	(elements.get(lapTyres));
-                    Weather weather			= Lap.weatherObject	(elements.get(lapWeather));
+                    Tyres tyres				= Constants.tyresObject	(elements.get(lapTyres));
+                    Weather weather			= Constants.weatherObject	(elements.get(lapWeather));
                     int temperature			= Integer.parseInt	(elements.get(lapTemp));
                     int humidity			= Integer.parseInt	(elements.get(LapHumidty));
-                    Event event				= Lap.eventObject	(elements.get(lapEvent));
+                    Event event				= Constants.eventObject	(elements.get(lapEvent));
 
                     laps.add(new Lap(lapNum, lapT, position, tyres, weather, temperature, humidity, event));
                 }
@@ -430,7 +431,7 @@ public class RaceParser {
                 {
                     int number 			           = elements.size();
                     String lapDesc 		           = (elements.get(pitLap));
-                    ArrayList<Reason> reasons 	   = parsePitReasons(elements.get(pitReason));
+                    ArrayList<PitReason> reasons   = parsePitReasons(elements.get(pitReason));
                     int tyreCondition	           = Integer.parseInt		(elements.get(pitTyresCondition));
                     int fuelLeft		           = Integer.parseInt		(elements.get(pitFuelLeft));
                     double time			           = Double.parseDouble	(elements.get(pitTime));
@@ -448,12 +449,12 @@ public class RaceParser {
         return pits;
     }
     
-    private static ArrayList<Reason> parsePitReasons(String string)
+    private static ArrayList<PitReason> parsePitReasons(String string)
     {
-        ArrayList<Reason> reasons = new ArrayList<Reason>();
+        ArrayList<PitReason> reasons = new ArrayList<PitReason>();
         for(String reason : string.split(","))
         {
-            reasons.add(Pit.reasonObject(reason));
+            reasons.add(Constants.pitReasonObject(reason));
         }
         return reasons;
     }

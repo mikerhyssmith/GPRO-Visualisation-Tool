@@ -1,10 +1,10 @@
 package data;
 
-public class Lap {
+import analysis.Constants.Event;
+import analysis.Constants.Tyres;
+import analysis.Constants.Weather;
 
-    public enum Weather { na, VeryCloudy, PartiallyCloudy, Cloudy, Sunny, Rain}
-    public enum Tyres 	{ na, ExtraSoft, Soft, Medium, Hard, Rain } 
-    public enum Event 	{ na, DriverMistake, Pit, CarProblem }
+public class Lap {
 
     private int 		m_lapNumber;
     private float 		m_lapTime;
@@ -57,80 +57,5 @@ public class Lap {
 
     public Event getEvent() {
         return m_event;
-    }
-
-    public static Weather weatherObject(String text)
-    {
-        Weather weather = Weather.na;
-        if(text.contains("Very Cloudy")) 				{ weather = Weather.VeryCloudy; 		}
-        else if(text.contains("Particially Cloudy")) 	{ weather = Weather.PartiallyCloudy; 	}
-        else if(text.contains("Cloudy")) 				{ weather = Weather.Cloudy; 			}
-        else if(text.contains("Sunny")) 				{ weather = Weather.Sunny; 				}
-        else if(text.contains("Rain")) 				    { weather = Weather.Rain; 				}
-        return weather;
-    }
-
-    public static String weatherString(Weather object)
-    {
-        String type = "na";
-        switch(object)
-        {
-        case VeryCloudy: 		type = "Very Cloudy";			break;
-        case PartiallyCloudy:	type = "Particially Cloudy";	break;
-        case Cloudy:			type = "Cloudy";				break;
-        case Sunny:				type = "Sunny";					break;
-        case Rain:				type = "Rain";					break;
-        default:				type = "na";					break;
-        }
-        return type;
-    }
-
-    public static Tyres tyresObject(String text)
-    {
-        Tyres tyres = Tyres.na;
-        if(text.contains("Extra Soft")) 	{ tyres = Tyres.ExtraSoft; 	}
-        else if(text.contains("Soft")) 	    { tyres = Tyres.Soft; 		}
-        else if(text.contains("Medium")) 	{ tyres = Tyres.Medium; 	}
-        else if(text.contains("Hard")) 	    { tyres = Tyres.Hard; 		}
-        else if(text.contains("Rain")) 	    { tyres = Tyres.Rain; 		}
-        return tyres;
-    }
-
-    public static String tyresString(Tyres object)
-    {
-        String type = "na";
-        switch(object)
-        {
-        case ExtraSoft: 		type = "Extra Soft";			break;
-        case Soft:				type = "Soft";					break;
-        case Medium:			type = "Medium";				break;
-        case Hard:				type = "Hard";					break;
-        case Rain:				type = "Rain";					break;
-        default:				type = "na";					break;
-        }
-        return type;
-    }
-
-    public static Event eventObject(String text)
-    {
-        // na, DriverMistake, Pit 
-        Event event = Event.na;
-        if(text.contains("Driver Mistake")) 	{ event = Event.DriverMistake; 	}
-        else if(text.contains("Pit")) 			{ event = Event.Pit; 			}
-        else if(text.contains("Car problem"))   { event = Event.CarProblem;     }
-        return event;
-    }
-
-    public static String eventString(Event object)
-    {
-        String type = "na";
-        switch(object)
-        {
-        case DriverMistake: 	type = "Driver Mistake";	break;
-        case Pit:				type = "Pit";				break;
-        case CarProblem:        type = "Car problem";       break;
-        default:				type = "na";				break;
-        }
-        return type;
     }
 }
