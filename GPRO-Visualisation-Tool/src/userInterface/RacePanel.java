@@ -2,6 +2,7 @@ package userInterface;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -43,10 +44,23 @@ public class RacePanel extends JPanel implements UIElement {
 		detailsPanel.add(wetLabel);
 		detailsPanel.add(distanceLabel);
 		
-		this.add(new JSeparator(SwingConstants.HORIZONTAL),BorderLayout.PAGE_START);
-		this.add(titlePanel,BorderLayout.NORTH);
-		this.add(detailsPanel,BorderLayout.SOUTH);
-		this.add(new JSeparator(SwingConstants.HORIZONTAL),BorderLayout.PAGE_END);
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
+		p.add(titlePanel,BorderLayout.NORTH);
+		p.add(detailsPanel,BorderLayout.SOUTH);
+		
+		this.add(new JSeparator(SwingConstants.HORIZONTAL),BorderLayout.NORTH);
+		this.add(p);
+		this.add(new JSeparator(SwingConstants.HORIZONTAL),BorderLayout.SOUTH);
+		
+	}
+	
+	public static void main(String[] args){
+		JFrame frame = new JFrame();
+		RacePanel r1 = new RacePanel("test",12,false,325.6f);
+		frame.add(r1);
+		frame.setSize(200,100);
+		frame.setVisible(true);
 		
 	}
 

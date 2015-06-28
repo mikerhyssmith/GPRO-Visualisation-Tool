@@ -2,13 +2,16 @@ package analysis;
 
 import java.util.ArrayList;
 
-import data.*;
+import data.Data;
+import data.Race;
+import data.RaceTrack;
+import data.User;
 
 public class DataSet {
     
     public static ArrayList<Race> getRaces()
     {
-        return Data.getInstance().races();
+        return (ArrayList<Race>) Data.getInstance().races().clone();
     }
     
     public static ArrayList<RaceTrack> getTracks()

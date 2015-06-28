@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
+import analysis.DataSet;
+
 import com.alee.extended.button.WebSwitch;
 import com.alee.extended.list.CheckBoxListModel;
 import com.alee.extended.list.WebCheckBoxList;
@@ -17,6 +19,8 @@ import com.alee.laf.scroll.WebScrollPane;
 import ernieyu_RangeSlider.slider.RangeSlider;
 
 public class SearchPanel extends JPanel implements UIElement {
+	
+	private DataSet dataset = new DataSet();
 	
 	public SearchPanel(){
 		this.setLayout(new FlowLayout());
@@ -143,4 +147,10 @@ public class SearchPanel extends JPanel implements UIElement {
         model.addCheckBoxElement ( "Very High", true );
         return model;
     }
+	
+	private void search(){
+		
+		
+		
+	}
 }

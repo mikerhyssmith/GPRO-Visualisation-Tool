@@ -46,12 +46,11 @@ public  class UserInterface extends JFrame implements UIElement {
                  add ( new WebMenuItem ( "Exit" ) );
              }
          } );
-         menuBar.add ( new WebMenu ( "Menu 2" )
+         menuBar.add ( new WebMenu ( "Analysis" )
          {
              {
-                 add ( new WebMenuItem ( "Menu item 1" ) );
-                 add ( new WebMenuItem ( "Menu item 2" ) );
-                 add ( new WebMenuItem ( "Menu item 3" ) );
+                 add ( new WebMenuItem ( "Optimal Setup Tool" ) );
+
              }
          } );
          menuBar.add ( new WebMenu ( "Help" )
@@ -79,11 +78,8 @@ public  class UserInterface extends JFrame implements UIElement {
          this.add(statusBar,BorderLayout.SOUTH);
          
          DisplayArea displayArea = new DisplayArea();
-         Dimension displayAreaSize = new Dimension((int) (this.getSize().getWidth()*0.7), this.getHeight());
-         //displayArea.setPreferredSize(displayAreaSize);
          displayArea.setVisible(true);
          this.add(displayArea,BorderLayout.CENTER);
-         //this.pack();
         
 	}
 }

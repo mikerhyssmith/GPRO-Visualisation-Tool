@@ -1,26 +1,45 @@
 package userInterface;
 
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
+
+import com.alee.laf.label.WebLabel;
+
+import data.Race;
 
 public class ResultsPanel extends JPanel implements UIElement {
 	
+	ArrayList<Race> results = new ArrayList<Race>();
+	private boolean resultsUpdated = true;
+	
 	public ResultsPanel(){
-		
 		initComponents();
 	}
 
 	@Override
 	public void initComponents() {
-		RacePanel r1 = new RacePanel("test",12,false,325.6f);
-		RacePanel r2 = new RacePanel("test2",16,true,323.612f);
-		RacePanel r3 = new RacePanel("test3",16,false,273.6f);
-		RacePanel r4 = new RacePanel("test4",117,false,212.6f);
-		
-		this.add(r1);
-		this.add(r2);
-		this.add(r3);
-		this.add(r4);
-		
+		WebLabel initResults = new WebLabel("Search to display results.");
+		this.add(initResults);
+	}
+	
+	public boolean getUpdating(){
+		return !resultsUpdated;
+	}
+	
+	public void updateResults(ArrayList<Race> results){
+		resultsUpdated = false;
+		this.removeAll();
+		for(Race r : results){
+			String name = r.getName();
+			int season = r.getSeason();
+			boolean wet = r.getWasWetRace();
+			float dist = r.getTrack().getDistance();
+			RacePanel r1 = new RacePanel(name,season,wet,dist);
+			this.add(r1);
+		}
+		resultsUpdated = true;
+
 		
 	}
 
