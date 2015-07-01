@@ -225,20 +225,29 @@ public class RaceParser {
                 }
                 if(elements.size() == lapColumnCount )
                 {
-                    int lapNum 				= Integer.parseInt	(elements.get(lapNumber));
-                    float lapT 			    = parseLapTime	(elements.get(lapTime));
-                    int position 			= Integer.parseInt	(elements.get(lapPos));
-                    Tyres tyres				= Constants.tyresObject	(elements.get(lapTyres));
-                    Weather weather			= Constants.weatherObject	(elements.get(lapWeather));
-                    int temperature			= Integer.parseInt	(elements.get(lapTemp));
-                    int humidity			= Integer.parseInt	(elements.get(LapHumidty));
-                    Event event				= Constants.eventObject	(elements.get(lapEvent));
+                    int lapNum 				    = Integer.parseInt	       (elements.get(lapNumber));
+                    float lapT 			        = parseLapTime	           (elements.get(lapTime));
+                    int position 			    = Integer.parseInt	       (elements.get(lapPos));
+                    Tyres tyres				    = Constants.tyresObject	   (elements.get(lapTyres));
+                    Weather weather			    = Constants.weatherObject  (elements.get(lapWeather));
+                    int temperature			    = Integer.parseInt	       (elements.get(lapTemp));
+                    int humidity			    = Integer.parseInt	       (elements.get(LapHumidty));
+                    ArrayList<Event> events		= parseEvents              (elements.get(lapEvent));
 
-                    laps.add(new Lap(lapNum, lapT, position, tyres, weather, temperature, humidity, event));
+                    laps.add(new Lap(lapNum, lapT, position, tyres, weather, temperature, humidity, events));
                 }
             }
         }
         return laps;
+    }
+    
+    private static ArrayList<Event> parseEvents(String string)
+    {
+        ArrayList<Event> events = new ArrayList<Event>();
+        String[] array = string.split(",");
+        for(String s : array)
+            events.add(Constants.eventObject(s));
+        return events;
     }
     
     private static float parseLapTime(String string)

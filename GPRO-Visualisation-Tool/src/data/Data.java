@@ -89,6 +89,10 @@ public class Data {
                 race.m_raceTrack = m_raceTracks.get(race.getName());
                 race.analyseRace();
             }
+            else
+            {
+                System.out.println("Problem linking track: " + race.getName());
+            }
         }
     }
 }

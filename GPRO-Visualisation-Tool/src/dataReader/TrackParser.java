@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 import data.RaceTrack;
+import analysis.Constants;
 
 /* Class designed to handle the parsing of GPRO html web pages to create RaceTrack Objects */
 public class TrackParser {
@@ -54,13 +55,13 @@ public class TrackParser {
         int 							power 				= 0;
         int 							handeling 			= 0;
         int 							acceleration 		= 0;
-        RaceTrack.difficultyListing 	downforce 			= RaceTrack.difficultyListing.na;
-        RaceTrack.overtakingListing 	overtaking 			= RaceTrack.overtakingListing.na;
-        RaceTrack.suspensionListing 	suspension 			= RaceTrack.suspensionListing.na;
-        RaceTrack.difficultyListing 	fuelConsumption 	= RaceTrack.difficultyListing.na;
-        RaceTrack.difficultyListing 	tyreWear 			= RaceTrack.difficultyListing.na;
-        RaceTrack.difficultyListing 	gripLevel 			= RaceTrack.difficultyListing.na;
-        RaceTrack.categoryListing 		category 			= RaceTrack.categoryListing.na;
+        Constants.difficultyListing 	downforce 			= Constants.difficultyListing.na;
+        Constants.overtakingListing 	overtaking 			= Constants.overtakingListing.na;
+        Constants.suspensionListing 	suspension 			= Constants.suspensionListing.na;
+        Constants.difficultyListing 	fuelConsumption 	= Constants.difficultyListing.na;
+        Constants.difficultyListing 	tyreWear 			= Constants.difficultyListing.na;
+        Constants.difficultyListing 	gripLevel 			= Constants.difficultyListing.na;
+        Constants.categoryListing 		category 			= Constants.categoryListing.na;
 
         Enumeration<String> dataSet = data.keys();
         while(dataSet.hasMoreElements())
@@ -79,13 +80,13 @@ public class TrackParser {
             else if(key.startsWith("Power:"))					{ power				= Integer.parseInt(value); 									}
             else if(key.startsWith("Handling:"))				{ handeling			= Integer.parseInt(value); 									}
             else if(key.startsWith("Acceleration:"))			{ acceleration		= Integer.parseInt(value); 									}
-            else if(key.startsWith("Downforce:"))				{ downforce 		= RaceTrack.difficultyListingObject(value); 				}
-            else if(key.startsWith("Overtaking:"))				{ overtaking 		= RaceTrack.overtakingListingObject(value); 				}
-            else if(key.startsWith("Suspension rigidity:"))		{ suspension 		= RaceTrack.suspensionListingObject(value); 				}
-            else if(key.startsWith("Fuel consumption:"))		{ fuelConsumption 	= RaceTrack.difficultyListingObject(value); 				}
-            else if(key.startsWith("Tyre wear:"))				{ tyreWear 			= RaceTrack.difficultyListingObject(value); 				}
-            else if(key.startsWith("Grip level:"))				{ gripLevel 		= RaceTrack.difficultyListingObject(value); 				}
-            else if(key.startsWith("Category:"))				{ category 			= RaceTrack.categoryListingObject(value); 					}
+            else if(key.startsWith("Downforce:"))				{ downforce 		= Constants.difficultyListingObject(value); 				}
+            else if(key.startsWith("Overtaking:"))				{ overtaking 		= Constants.overtakingListingObject(value); 				}
+            else if(key.startsWith("Suspension rigidity:"))		{ suspension 		= Constants.suspensionListingObject(value); 				}
+            else if(key.startsWith("Fuel consumption:"))		{ fuelConsumption 	= Constants.difficultyListingObject(value); 				}
+            else if(key.startsWith("Tyre wear:"))				{ tyreWear 			= Constants.difficultyListingObject(value); 				}
+            else if(key.startsWith("Grip level:"))				{ gripLevel 		= Constants.difficultyListingObject(value); 				}
+            else if(key.startsWith("Category:"))				{ category 			= Constants.categoryListingObject(value); 					}
         }
 
         return new RaceTrack(name, url, location, distance, lapNumber, lapDistance, averageSpeed, courners, pitTime, power, handeling, acceleration, downforce, overtaking, suspension, fuelConsumption, tyreWear, gripLevel, category);
@@ -143,17 +144,6 @@ public class TrackParser {
             {
                 for(Node body : html.childNodes())
                 {
-                    if(body.nodeName() == "head")
-                    {
-                        for(Node head : body.childNodes())
-                        {
-                            if(head.nodeName() == "title")
-                            {
-                                Element element = (Element) head;
-                                raceName = element.text().trim().split("-")[1].trim();
-                            }
-                        }
-                    }
                     if(body.nodeName() == "body")
                     {
                         for(Node div : body.childNodes())
@@ -178,6 +168,13 @@ public class TrackParser {
                                                             {
                                                                 for(Node table : div4.childNodes())
                                                                 {
+                                                                    if(table.nodeName() == "h1")
+                                                                    {
+                                                                        String name = ((Element) table).text();
+                                                                        raceName = name;
+                                                                        if(name.indexOf("(") != -1)
+                                                                            raceName = name.substring(0, name.indexOf("(")-1);
+                                                                    }
                                                                     if(table.nodeName() == "table")
                                                                     {
                                                                         for(Node tableBody : table.childNodes())

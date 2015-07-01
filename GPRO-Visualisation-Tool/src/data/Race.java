@@ -49,6 +49,7 @@ public class Race {
         m_startingFuel = startingFuel;
         m_tyresAtEnd = tyresAtEnd;
         m_fuelLeft = fuelLeft;
+        m_dryTyres = Tyres.na;
         
         m_wetRace = false;
         m_carProblem = false;
@@ -85,7 +86,7 @@ public class Race {
     private void calculateTechicalProblem()
     {
         for(Lap lap: getLaps())
-            if(lap.getEvent() == Event.CarProblem) { m_carProblem = true; return; }
+            if(lap.getEvents().contains(Event.CarProblem)) { m_carProblem = true; return; }
     }
     
     private void calculateTotalFuelUsed()

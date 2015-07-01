@@ -1,21 +1,23 @@
 package data;
 
+import java.util.ArrayList;
+
 import analysis.Constants.Event;
 import analysis.Constants.Tyres;
 import analysis.Constants.Weather;
 
 public class Lap {
 
-    private int 		m_lapNumber;
-    private float 		m_lapTime;
-    private int 		m_position;
-    private Tyres 		m_tyres;
-    private Weather 	m_weather;
-    private int 		m_temperature;
-    private int 		m_humidity;
-    private Event 		m_event;
+    private int 		              m_lapNumber;
+    private float 		              m_lapTime;
+    private int 		              m_position;
+    private Tyres 		              m_tyres;
+    private Weather 	              m_weather;
+    private int 		              m_temperature;
+    private int 		              m_humidity;
+    private ArrayList<Event> 		  m_events;
 
-    public Lap(int lapNumber, float lapTime, int position, Tyres tyres, Weather weather, int temperature, int humidity, Event event)
+    public Lap(int lapNumber, float lapTime, int position, Tyres tyres, Weather weather, int temperature, int humidity, ArrayList<Event> events)
     {
         m_lapNumber		= lapNumber;
         m_lapTime 		= lapTime;
@@ -24,7 +26,7 @@ public class Lap {
         m_weather 		= weather;
         m_temperature 	= temperature;
         m_humidity 		= humidity;
-        m_event 		= event;
+        m_events 		= events;
     }
 
     public int getLapNumber() {
@@ -55,7 +57,7 @@ public class Lap {
         return m_humidity;
     }
 
-    public Event getEvent() {
-        return m_event;
+    public ArrayList<Event> getEvents() {
+        return m_events;
     }
 }

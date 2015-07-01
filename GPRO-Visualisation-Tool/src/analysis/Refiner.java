@@ -1,54 +1,82 @@
 package analysis;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import data.*;
-import analysis.Constants.Tyres;
+import analysis.Constants.*;
 
 public class Refiner {
 
     public static ArrayList<Race> removeWetRaces(ArrayList<Race> races)
     {
-        for(Race race: races)
-            if(race.getWasWetRace()) { races.remove(race); }
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
+        {
+            Race race = i.next();
+            if(race.getWasWetRace()) 
+                i.remove(); 
+        }
         return races;
     }
     
     public static ArrayList<Race> refineTyres(ArrayList<Race> races, Tyres tyres)
     {
-        for(Race race : races)
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
         {
+            Race race = i.next();
             if(race.getDryTyres() != tyres)
-                races.remove(race);
+                i.remove();
         }
         return races;
     }
     
     public static ArrayList<Race> refineSeason(ArrayList<Race> races, int seasonNo)
     {
-        for(Race race: races)
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
         {
+            Race race = i.next();
             if(race.getSeason() != seasonNo)
-                races.remove(race);
+                i.remove();
         }
         return races;
     }
     
     public static ArrayList<Race> refineRaceName(ArrayList<Race> races, String raceName)
     {
-        for(Race race: races)
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
         {
+            Race race = i.next();
             if(race.getName() != raceName)
-                races.remove(race);
+                i.remove();
         }
         return races;
     }
     
     public static ArrayList<Race> refineRaceDistance(ArrayList<Race> races, float min, float max)
     {
-        for(Race race : races)
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
         {
+            Race race = i.next();
             float distance = race.getTrack().getDistance();
-            if(distance < min || distance > max) { races.remove(race); }
+            if(distance < min || distance > max)
+                i.remove();
+        }
+        return races;
+    }
+    
+    public static ArrayList<Race> refineFuel(ArrayList<Race> races, difficultyListing difficulty)
+    {
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
+        {
+            Race race = i.next();
+            if(race.getTrack().getFuelConsumption() != difficulty)
+                i.remove();
         }
         return races;
     }

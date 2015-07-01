@@ -2,14 +2,15 @@ package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import analysis.Constants;
+import analysis.Constants.difficultyListing;
+import analysis.Constants.overtakingListing;
+import analysis.Constants.suspensionListing;
+import analysis.Constants.categoryListing;
 
 public class RaceTrack implements Serializable {
     private static final long serialVersionUID = 3924515276085632600L;
 
-    public enum difficultyListing 	{ na, VeryLow, Low, Medium, High, VeryHigh }
-    public enum suspensionListing 	{ na, Soft, Medium, Hard }
-    public enum overtakingListing 	{ na, VeryEasy, Easy, Normal, Hard, VeryHard }
-    public enum categoryListing 	{ na, NonF1, F1 }
     
     protected ArrayList<Race>   m_races;
 
@@ -137,31 +138,31 @@ public class RaceTrack implements Serializable {
     }
 
     public String getDownforceString() {
-        return difficultyListingString(m_downforce);
+        return Constants.difficultyListingString(m_downforce);
     }
 
     public String getOvertakingString() {
-        return overtakingListingString(m_overtaking);
+        return Constants.overtakingListingString(m_overtaking);
     }
 
     public String getSuspensionString() {
-        return suspensionListingString(m_suspension);
+        return Constants.suspensionListingString(m_suspension);
     }
 
     public String getFuelConsumptionString() {
-        return difficultyListingString(m_fuelConsumption);
+        return Constants.difficultyListingString(m_fuelConsumption);
     }
 
     public String getTyreWearString() {
-        return difficultyListingString(m_tyreWear);
+        return Constants.difficultyListingString(m_tyreWear);
     }
 
     public String getGripLevelString() {
-        return difficultyListingString(m_gripLevel);
+        return Constants.difficultyListingString(m_gripLevel);
     }
 
     public String getCategoryString() {
-        return categoryListingString(m_category);
+        return Constants.categoryListingString(m_category);
     }
     
     public ArrayList<Race> getRaces()
@@ -169,97 +170,4 @@ public class RaceTrack implements Serializable {
         return m_races;
     }
 
-    public static difficultyListing difficultyListingObject(String text) 	
-    { 
-        difficultyListing type = difficultyListing.na;
-        if(text.contains("Very low")) { type = difficultyListing.VeryLow; }
-        else if(text.contains("Low")) { type = difficultyListing.Low; }
-        else if(text.contains("Medium")) { type = difficultyListing.Medium; }
-        else if(text.contains("High")) {type = difficultyListing.High; }
-        else if(text.contains("Very high")) { type = difficultyListing.VeryHigh; }
-        return type;
-    }
-
-    public static String difficultyListingString(difficultyListing object) 	
-    { 
-        String type = "na";
-        switch(object)
-        {
-        case VeryLow: 	type = "Very low";	break;
-        case Low: 		type = "Low";		break;
-        case Medium: 	type = "Medium";	break;
-        case High:		type = "High";		break;
-        case VeryHigh: 	type = "Very High";	break;
-        default :		type = "na";		break;
-        }
-        return type;
-    }
-
-    public static suspensionListing suspensionListingObject(String text) 	
-    { 
-        suspensionListing type = suspensionListing.na;
-        if(text.contains("Soft")) 			{ type = suspensionListing.Soft; 	}
-        else if(text.contains("Medium")) 	{ type = suspensionListing.Medium; 	}
-        else if(text.contains("Hard")) 	    { type = suspensionListing.Hard; 	}
-        return type;
-    }
-
-    public static String suspensionListingString(suspensionListing object) 	
-    { 
-        String type = "na";
-        switch(object)
-        {
-        case Soft: 		type = "Soft";		break;
-        case Medium:	type = "Medium";	break;
-        case Hard:		type = "Hard";		break;
-        default:		type = "na";		break;
-        }
-        return type;
-    }
-
-    public static overtakingListing overtakingListingObject(String text) 	
-    { 
-        overtakingListing type = overtakingListing.na;
-        if(text.contains("Very easy"))			{ type = overtakingListing.VeryEasy;}
-        else if(text.contains("Easy"))			{ type = overtakingListing.Easy; 	}
-        else if(text.contains("Normal"))		{ type = overtakingListing.Normal; 	}
-        else if(text.contains("Hard"))			{ type = overtakingListing.Hard; 	}
-        else if(text.contains("Very hard"))	    { type = overtakingListing.VeryHard;}
-        return type;
-    }
-
-    public static String overtakingListingString(overtakingListing object) 	
-    { 
-        String type = "na";
-        switch(object)
-        {
-        case VeryEasy: 	type = "Very easy"; 	break;
-        case Easy: 		type = "Easy"; 			break;
-        case Normal: 	type = "Normal"; 		break;
-        case Hard: 		type = "Hard"; 			break;
-        case VeryHard: 	type = "Very hard"; 	break;
-        default:		type = "na"; 			break;
-        }
-        return type;
-    }
-
-    public static categoryListing categoryListingObject(String text) 	
-    { 
-        categoryListing type = categoryListing.na;
-        if(text.contains("F1")) 			{ type = categoryListing.F1; }
-        else if(text.contains("non F1")) 	{ type = categoryListing.NonF1; }
-        return type;
-    }
-
-    public static String categoryListingString(categoryListing object) 	
-    { 
-        String type = "na";
-        switch(object)
-        {
-        case F1: 		type = "F1"; 		break;
-        case NonF1: 	type = "non F1"; 	break;
-        default : 		type = "na";		break;
-        }
-        return type;
-    }
 }
