@@ -5,14 +5,14 @@ import data.Race;
 
 public class Constants {
     
-    public enum Weather             { na, VeryCloudy, PartiallyCloudy, Cloudy, Sunny, Rain}
-    public enum Tyres               { na, ExtraSoft, Soft, Medium, Hard, Rain } 
-    public enum Event               { na, DriverMistake, Pit, CarProblem }
-    public enum PitReason           { na, Tyres, Fuel, Weather }
-    public enum difficultyListing   { na, VeryLow, Low, Medium, High, VeryHigh }
-    public enum suspensionListing   { na, Soft, Medium, Hard }
-    public enum overtakingListing   { na, VeryEasy, Easy, Normal, Hard, VeryHard }
-    public enum categoryListing     { na, NonF1, F1 }
+    public static enum Weather             { na, VeryCloudy, PartiallyCloudy, Cloudy, Sunny, Rain}
+    public static enum Tyres               { na, ExtraSoft, Soft, Medium, Hard, Rain } 
+    public static enum Event               { na, DriverMistake, Pit, CarProblem }
+    public static enum PitReason           { na, Tyres, Fuel, Weather }
+    public static enum difficultyListing   { na, VeryLow, Low, Medium, High, VeryHigh }
+    public static enum suspensionListing   { na, Soft, Medium, Hard }
+    public static enum overtakingListing   { na, VeryEasy, Easy, Normal, Hard, VeryHard }
+    public static enum categoryListing     { na, NonF1, F1 }
     
     // Instance Variable
     private static Constants m_instance = null;
@@ -55,7 +55,7 @@ public class Constants {
         return m_instance;
     }
     
-    public float getMaxRaceDistance()
+    public  float getMaxRaceDistance()
     {
         return m_maxRaceDistance;
     }

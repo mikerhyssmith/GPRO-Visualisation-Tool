@@ -2,13 +2,17 @@ package userInterface;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.JPanel;
 
-import analysis.DataSet;
+import analysis.Constants;
 
 import com.alee.extended.button.WebSwitch;
+import com.alee.extended.list.CheckBoxCellData;
 import com.alee.extended.list.CheckBoxListModel;
 import com.alee.extended.list.WebCheckBoxList;
 import com.alee.extended.panel.WebCollapsiblePane;
@@ -16,15 +20,27 @@ import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.scroll.WebScrollPane;
 
+import data.Race;
 import ernieyu_RangeSlider.slider.RangeSlider;
+import factoryProviders.SearchFactory;
 
-public class SearchPanel extends JPanel implements UIElement {
+public class SearchPanel extends JPanel implements UIElement,ActionListener {
 	
-	private DataSet dataset = new DataSet();
+
+	private SearchFactory sFact = new SearchFactory();
+	private RangeSlider distanceSlider;
+	private RangeSlider tempSlider;
+	private WebSwitch errorSwitch;
+	private WebSwitch mistakeSwitch;
+	private ResultsPanel results;
+	private WebCheckBoxList tyreCheckBox;
+	private WebCheckBoxList fuelConsumptionCheckBox;
+
+
 	
-	public SearchPanel(){
+	public SearchPanel(ResultsPanel results){
 		this.setLayout(new FlowLayout());
-		
+		this.results = results;
 		initComponents();
 	}
 
@@ -32,32 +48,30 @@ public class SearchPanel extends JPanel implements UIElement {
 	public void initComponents() {
 		WebLabel distLabel = new WebLabel ( "Race Distance" );
 		
-		RangeSlider distanceSlider = new RangeSlider();
-		//distanceSlider.setPreferredSize(new Dimension(240, distanceSlider.getPreferredSize().height));
-        distanceSlider.setMinimum(200);
+		distanceSlider = new RangeSlider();
+        distanceSlider.setMinimum(0);
         distanceSlider.setMaximum(400);
         distanceSlider.setValue(distanceSlider.getMinimum());
         distanceSlider.setUpperValue(distanceSlider.getMaximum());
         
         WebLabel tempLabel = new WebLabel ( "Race Temperature" );
         
-        RangeSlider tempSlider = new RangeSlider();
-		//tempSlider.setPreferredSize(new Dimension(240, distanceSlider.getPreferredSize().height));
+        tempSlider = new RangeSlider();
         tempSlider.setMinimum(0);
         tempSlider.setMaximum(50);
         tempSlider.setValue(tempSlider.getMinimum());
         tempSlider.setUpperValue(tempSlider.getMaximum());
         
         WebLabel errorLabel = new WebLabel("Problem Occured: ");
-        WebSwitch errorSwitch = new WebSwitch ();
+        errorSwitch = new WebSwitch ();
         errorSwitch.setRound ( 11 );
         
         WebLabel mistakeLabel = new WebLabel("Driver Mistake: ");
-        WebSwitch mistakeSwitch = new WebSwitch ();
+        mistakeSwitch = new WebSwitch ();
         mistakeSwitch.setRound ( 11 );
        
         
-        WebCheckBoxList tyreCheckBox = new WebCheckBoxList ( createTyreModel () );
+        tyreCheckBox = new WebCheckBoxList ( createTyreModel () );
         tyreCheckBox.setVisibleRowCount ( 4 );
         tyreCheckBox.setSelectedIndex ( 0 );
         tyreCheckBox.setEditable ( false );
@@ -75,7 +89,7 @@ public class SearchPanel extends JPanel implements UIElement {
         tyreUsageCollapsePane.setExpanded(false);
         
         
-        WebCheckBoxList fuelConsumptionCheckBox = new WebCheckBoxList ( createUsageModel () );
+        fuelConsumptionCheckBox = new WebCheckBoxList ( createUsageModel () );
         fuelConsumptionCheckBox.setVisibleRowCount ( 4 );
         fuelConsumptionCheckBox.setSelectedIndex ( 0 );
         fuelConsumptionCheckBox.setEditable ( false );
@@ -120,6 +134,7 @@ public class SearchPanel extends JPanel implements UIElement {
         button1.setLeftRightSpacing ( 40 );
         button1.setRound(11);
         button1.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        button1.addActionListener(this);
         this.add(button1);
         
 		
@@ -149,8 +164,28 @@ public class SearchPanel extends JPanel implements UIElement {
     }
 	
 	private void search(){
+		ArrayList<Constants.Tyres> tyres = new ArrayList<Constants.Tyres>();
+		for(CheckBoxCellData s : tyreCheckBox.getCheckBoxListModel().getElements()){
+			if(!s.isSelected()){
+				tyres.add(Constants.tyresObject(s.getId()));
+			}
 		
+		}
+		ArrayList<Constants.difficultyListing> fUsage = new ArrayList<Constants.difficultyListing>();
+		for(CheckBoxCellData s : tyreCheckBox.getCheckBoxListModel().getElements()){
+			if(!s.isSelected()){
+				fUsage.add(Constants.difficultyListingObject(s.getId()));
+			}
 		
+		}
+		ArrayList<Race> result = sFact.getRefinedRaceDataset(distanceSlider.getMinimum(), distanceSlider.getMaximum(), tempSlider.getMinimum(), tempSlider.getMaximum(), errorSwitch.isSelected(), mistakeSwitch.isSelected(), tyres, null, fUsage);
+		results.updateResults(result);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+
+		search();
 		
 	}
 }
