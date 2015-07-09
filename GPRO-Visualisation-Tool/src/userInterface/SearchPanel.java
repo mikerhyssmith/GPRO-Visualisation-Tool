@@ -181,11 +181,11 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 		}
 		ArrayList<Race> result = sFact.getRefinedRaceDataset(distanceSlider.getMinimum(), distanceSlider.getMaximum(), tempSlider.getMinimum(), tempSlider.getMaximum(), errorSwitch.isSelected(), mistakeSwitch.isSelected(), tyres, null, fUsage);
 		results.updateResults(result);
+		UserState.updateDataset(result);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
 		search();
 		
 	}

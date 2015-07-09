@@ -22,7 +22,7 @@ public class DisplayArea extends JPanel implements UIElement {
 
 	@Override
 	public void initComponents() {
-		WebTabbedPane tabbedPanel = new WebTabbedPane();
+		tabbedPanel = new WebTabbedPane();
 		tabbedPanel.setTabPlacement ( WebTabbedPane.TOP );
 		tabbedPanel.addTab("Welcome !", new WelcomePanel());
 		this.add(tabbedPanel,BorderLayout.CENTER);
@@ -31,6 +31,7 @@ public class DisplayArea extends JPanel implements UIElement {
 	
 	public <T extends JPanel> void addTab(T tabElement){
 		tabbedPanel.addTab(tabElement.getName(), tabElement);
+		tabbedPanel.setSelectedIndex(tabbedPanel.getComponentCount()-1);
 	}
 	
 }

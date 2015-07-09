@@ -23,7 +23,7 @@ import com.alee.laf.menu.WebMenuItem;
 public  class UserInterface extends JFrame implements UIElement {
 	
 	
-	
+	private static DisplayArea displayArea;
 
 	public UserInterface() {
 		WebLookAndFeel.install();
@@ -77,9 +77,12 @@ public  class UserInterface extends JFrame implements UIElement {
          StatusBar statusBar = new StatusBar();
          this.add(statusBar,BorderLayout.SOUTH);
          
-         DisplayArea displayArea = new DisplayArea();
+         displayArea = new DisplayArea();
          displayArea.setVisible(true);
          this.add(displayArea,BorderLayout.CENTER);
         
+	}
+	public static DisplayArea getDisplayArea(){
+		return displayArea;
 	}
 }

@@ -1,12 +1,15 @@
 package userInterface;
 
 import java.awt.Component;
-import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import analysis.Constants;
 
 import com.alee.extended.button.WebSwitch;
 import com.alee.extended.panel.GroupPanel;
@@ -15,8 +18,12 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.radiobutton.WebRadioButton;
 import com.alee.utils.swing.UnselectableButtonGroup;
 
-public class LineChartPanel extends JPanel implements UIElement {
+import factoryProviders.GraphFactory;
+
+public class LineChartPanel extends JPanel implements UIElement,ActionListener {
 	
+	 WebRadioButton radioButtonA;
+	 WebRadioButton radioButtonS; 
 	
 	public LineChartPanel(){
 		initComponents();
@@ -26,11 +33,11 @@ public class LineChartPanel extends JPanel implements UIElement {
 	public void initComponents() {
 		
 		WebLabel choiceLabel = new WebLabel("Visualisation Choice:");
-		final WebRadioButton radioButtonA = new WebRadioButton ( "Total Fuel Vs Distance" );
+		radioButtonA = new WebRadioButton ( "Total Fuel VS Distance" );
         radioButtonA.setSelected ( true );
 
         // Static radio button
-        final WebRadioButton radioButtonS = new WebRadioButton ( "Some other Vis" );
+        radioButtonS = new WebRadioButton ( "Some other Vis" );
         radioButtonS.setAnimated ( false );
 
         // Grouping buttons with custom button group that allows deselection
@@ -53,6 +60,7 @@ public class LineChartPanel extends JPanel implements UIElement {
         button1.setLeftRightSpacing ( 40 );
         button1.setRound(11);
         button1.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        button1.addActionListener(this);
         
         this.add(visGroup);
         this.add(Box.createHorizontalStrut(5));
@@ -66,6 +74,19 @@ public class LineChartPanel extends JPanel implements UIElement {
         this.add(new JSeparator(SwingConstants.VERTICAL));
         this.add(Box.createHorizontalStrut(5));
         this.add(button1);
+		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+		Constants.chartType type = Constants.chartType.na;
+		
+		if(radioButtonA.isSelected()){
+			type = Constants.chartType.TotalFuelVsDistance; 
+		}
+		
+		UserInterface.getDisplayArea().addTab(GraphFactory.produceChart(type, UserState.getDataset()));
 		
 	}
 	

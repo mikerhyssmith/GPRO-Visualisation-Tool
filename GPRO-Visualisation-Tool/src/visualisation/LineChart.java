@@ -23,16 +23,16 @@ public class  LineChart<T extends Number> extends JPanel {
 	private XYSeries data;
 	private JFreeChart chart;
 	private XYSeriesCollection dataset;
-	private Dimension chartSize;
+
 	
-	public  LineChart(ArrayList<T> xValues, ArrayList<T> yValues,String title, String xAxisLabel, String yAxisLabel,Dimension d){
+	public  LineChart(ArrayList<T> xValues, ArrayList<T> yValues,String title, String xAxisLabel, String yAxisLabel){
 		
 			this.xValues = xValues;
 			this.yValues = yValues;
 			this.xAxisLabel = xAxisLabel;
 			this.yAxisLabel = yAxisLabel;
 			this.title = title;
-			this.chartSize = d;
+			setName(title);
 			
 			data = new XYSeries("Series 1");
 			dataset = new XYSeriesCollection();
@@ -68,9 +68,6 @@ public class  LineChart<T extends Number> extends JPanel {
 		
 		
 		ChartPanel panel = new ChartPanel(chart);
-		panel.setSize(chartSize);
-		this.setSize(chartSize);
-		this.setPreferredSize(chartSize);
 		this.add(panel);
 		
 	}

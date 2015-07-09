@@ -2,12 +2,16 @@ package userInterface;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JPanel;
 
 import com.alee.laf.combobox.WebComboBox;
+
+import factoryProviders.GraphFactory;
 
 public class VisualisationOptionsPanel extends JPanel implements UIElement,ItemListener {
 	
@@ -54,6 +58,8 @@ public class VisualisationOptionsPanel extends JPanel implements UIElement,ItemL
         cLayout.show(cards, (String)evt.getItem());
 		
 	}
+
+	
 
 }
 

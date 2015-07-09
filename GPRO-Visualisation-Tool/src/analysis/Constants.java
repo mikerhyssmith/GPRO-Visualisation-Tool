@@ -13,6 +13,7 @@ public class Constants {
     public static enum suspensionListing   { na, Soft, Medium, Hard }
     public static enum overtakingListing   { na, VeryEasy, Easy, Normal, Hard, VeryHard }
     public static enum categoryListing     { na, NonF1, F1 }
+    public static enum chartType           { na, TotalFuelVsDistance }
     
     // Instance Variable
     private static Constants m_instance = null;
@@ -105,6 +106,24 @@ public class Constants {
         default:                type = "na";                    break;
         }
         return type;
+    }
+    
+    public static chartType chartTypeObject(String text){
+    	
+    	chartType type = chartType.na;
+    	if(text.contains("Total Fuel VS Distance")) { type = chartType.TotalFuelVsDistance; }
+    	
+    	return type;
+    }
+    public static String chartTypeString(chartType object){
+    	String type = "na";
+    	switch(object)
+    	{
+    	case TotalFuelVsDistance: type = "Total Fuel VS Distance"; break;
+    	default:                  type = "na"; break;
+    	}
+    	return type;
+    	
     }
 
     public static Tyres tyresObject(String text)
