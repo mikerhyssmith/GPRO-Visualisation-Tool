@@ -72,13 +72,25 @@ public class  LineChart<T extends Number> extends JPanel {
 		
 	}
 	
-	/**
+	
 	public void plotScatterGraph(){
 		
-		XYPlot plot = new XYPlot(data);
-		this.add(new InteractivePanel(plot));
+		chart = ChartFactory.createScatterPlot(
+	            title,      // chart title
+	            xAxisLabel,                      // x axis label
+	            yAxisLabel,                      // y axis label
+	            dataset,                  // data
+	            PlotOrientation.VERTICAL,
+	            true,                     // include legend
+	            true,                     // tooltips
+	            false                     // urls
+	        );
+	
+	
+		ChartPanel panel = new ChartPanel(chart);
+		this.add(panel);
 	}
-	*/
+	
 
 	
 }

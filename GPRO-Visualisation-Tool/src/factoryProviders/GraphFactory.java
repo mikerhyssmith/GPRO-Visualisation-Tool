@@ -34,7 +34,7 @@ public class GraphFactory {
 		
 		LineChart<Double> chart = new LineChart<Double>(xValues,yValues,"Total Distance vs Fuel" ,"Distance (KM)","Fuel (litres)");
 		chart.createDataTable();
-		chart.plotLineGraph();
+		chart.plotScatterGraph();
 		
 		return chart;
 	}
