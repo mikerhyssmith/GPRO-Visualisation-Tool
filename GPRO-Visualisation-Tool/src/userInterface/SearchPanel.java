@@ -145,6 +145,7 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 	private CheckBoxListModel createTyreModel ()
     {
         final CheckBoxListModel model = new CheckBoxListModel ();
+        model.addCheckBoxElement ( "Extra Soft", true );
         model.addCheckBoxElement ( "Soft", true );
         model.addCheckBoxElement ( "Medium", true );
         model.addCheckBoxElement ( "Hard", true );
@@ -167,14 +168,14 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 		ArrayList<Constants.Tyres> tyres = new ArrayList<Constants.Tyres>();
 		for(CheckBoxCellData s : tyreCheckBox.getCheckBoxListModel().getElements()){
 			if(!s.isSelected()){
-				tyres.add(Constants.tyresObject(s.getId()));
+				tyres.add(Constants.tyresObject(s.getUserObject().toString()));
 			}
 		
 		}
 		ArrayList<Constants.difficultyListing> fUsage = new ArrayList<Constants.difficultyListing>();
 		for(CheckBoxCellData s : tyreCheckBox.getCheckBoxListModel().getElements()){
 			if(!s.isSelected()){
-				fUsage.add(Constants.difficultyListingObject(s.getId()));
+				fUsage.add(Constants.difficultyListingObject(s.getUserObject().toString()));
 			}
 		
 		}
