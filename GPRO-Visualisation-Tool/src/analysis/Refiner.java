@@ -1,12 +1,25 @@
 package analysis;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.EnumSet;
 
 import data.*;
 import analysis.Constants.*;
 
+
 public class Refiner {
+    
+    public enum refineBy             { wetRace, dryRace}
+    
+    
+    public static ArrayList<Race> refine(ArrayList<Race> races, EnumSet<refineBy> critera)
+    {
+        if(critera.contains(refineBy.wetRace))
+            races = removeWetRaces(races);
+        return null;
+    }
 
     public static ArrayList<Race> removeWetRaces(ArrayList<Race> races)
     {
@@ -44,7 +57,7 @@ public class Refiner {
         return races;
     }
     
-    public static ArrayList<Race> refineRaceName(ArrayList<Race> races, String raceName)
+    private static ArrayList<Race> refineRaceName(ArrayList<Race> races, String raceName)
     {
         Iterator<Race> i = races.iterator();
         while(i.hasNext())

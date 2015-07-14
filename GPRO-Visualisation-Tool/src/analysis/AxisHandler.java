@@ -21,4 +21,17 @@ public class AxisHandler {
             fuelUsage.add(race.getTotalFuelUsed());
         return fuelUsage;
     }
+    
+    public static ArrayList<ArrayList<Float>> getLapTimes(ArrayList<Race> races)
+    {
+        ArrayList<ArrayList<Float>> timings = new ArrayList<ArrayList<Float>>();
+        for(Race race : races)
+        {
+            ArrayList<Float> times = new ArrayList<Float>();
+            for(Lap lap : race.getLaps())
+                times.add(lap.getLapTime());
+            timings.add(times);
+        }
+        return timings;
+    }
 }

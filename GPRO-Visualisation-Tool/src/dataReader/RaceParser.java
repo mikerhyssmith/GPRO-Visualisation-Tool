@@ -283,8 +283,14 @@ public class RaceParser {
                     if(td.nodeName() == "td")
                     {
                         String elem = ((Element) td).text();
-                        if(!elem.isEmpty())
+                        if(elem.isEmpty() || elem.contains("-"))
+                        {
+                            elements.add(0);
+                        }
+                        else
+                        {
                             elements.add(Integer.parseInt(elem));
+                        }
                     }
                 }
                 if(elements.size() == riskColumnCount)

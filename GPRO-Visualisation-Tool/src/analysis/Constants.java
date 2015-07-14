@@ -19,13 +19,13 @@ public class Constants {
     private static Constants m_instance = null;
     
     // Global Constants
-    public final static int m_fuelTankSize = 180;
+    private final static int m_fuelTankSize = 180;
     
     // Session Constants
-    private float m_maxRaceDistance;
-    private float m_minRaceDistance;
-    private float m_maxFuelUsed;
-    private float m_minFuelUsed;
+    private static float m_maxRaceDistance;
+    private static float m_minRaceDistance;
+    private static float m_maxFuelUsed;
+    private static float m_minFuelUsed;
     
     
     private Constants()
@@ -49,35 +49,39 @@ public class Constants {
  
     }
     
-    public Constants getInstance()
+    public static Constants getInstance()
     {
         if(m_instance == null)
             m_instance = new Constants();
         return m_instance;
     }
     
-    public  float getMaxRaceDistance()
+    public static float getMaxRaceDistance()
     {
+        getInstance();
         return m_maxRaceDistance;
     }
     
-    public float getMinRaceDistance()
+    public static float getMinRaceDistance()
     {
+        getInstance();
         return m_minRaceDistance;
     }
     
-    public int getFuelTankSize()
+    public static int getFuelTankSize()
     {
+        getInstance();
         return m_fuelTankSize;
     }
     
-    public float getMaxFuelUsed()
+    public static float getMaxFuelUsed()
     {
         return m_maxFuelUsed;
     }
     
-    public float getMinFuelUsed()
+    public static float getMinFuelUsed()
     {
+        getInstance();
         return m_minFuelUsed;
     }
     
@@ -203,10 +207,10 @@ public class Constants {
     public static difficultyListing difficultyListingObject(String text)    
     { 
         difficultyListing type = difficultyListing.na;
-        if(text.contains("Very low")) { type = difficultyListing.VeryLow; }
-        else if(text.contains("Low")) { type = difficultyListing.Low; }
-        else if(text.contains("Medium")) { type = difficultyListing.Medium; }
-        else if(text.contains("High")) {type = difficultyListing.High; }
+        if(text.contains("Very low"))       { type = difficultyListing.VeryLow; }
+        else if(text.contains("Low"))       { type = difficultyListing.Low; }
+        else if(text.contains("Medium"))    { type = difficultyListing.Medium; }
+        else if(text.contains("High"))      {type = difficultyListing.High; }
         else if(text.contains("Very high")) { type = difficultyListing.VeryHigh; }
         else                                { System.out.println("Problem Difficulty String: " + text); }
         return type;

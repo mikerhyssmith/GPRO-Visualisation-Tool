@@ -1,6 +1,7 @@
 package analysis;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import data.Data;
 import data.Race;
@@ -16,9 +17,9 @@ public class DataSet {
     }
     
     @SuppressWarnings("unchecked")
-    public static ArrayList<RaceTrack> getTracks()
+    public static Collection<RaceTrack> getTracks()
     {
-        return (ArrayList<RaceTrack>) ((ArrayList<RaceTrack>) Data.getInstance().raceTracks().values()).clone();
+        return Data.getInstance().raceTracks().values();
     }
     
     @SuppressWarnings("unchecked")

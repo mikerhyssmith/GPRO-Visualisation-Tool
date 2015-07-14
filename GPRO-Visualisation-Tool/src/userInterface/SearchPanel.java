@@ -49,10 +49,12 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 		WebLabel distLabel = new WebLabel ( "Race Distance" );
 		
 		distanceSlider = new RangeSlider();
-        distanceSlider.setMinimum(0);
-        distanceSlider.setMaximum(400);
+        distanceSlider.setMinimum((int)Constants.getMinRaceDistance());
+        distanceSlider.setMaximum((int)Constants.getMaxRaceDistance());
         distanceSlider.setValue(distanceSlider.getMinimum());
-        distanceSlider.setUpperValue(distanceSlider.getMaximum());
+        distanceSlider.setUpperValue(distanceSlider.getMaximum()); 
+        //distanceSlider.createStandardLabels(20, distanceSlider.getMinimum());
+        distanceSlider.createStandardLabels(20);
         
         WebLabel tempLabel = new WebLabel ( "Race Temperature" );
         
@@ -145,22 +147,16 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 	private CheckBoxListModel createTyreModel ()
     {
         final CheckBoxListModel model = new CheckBoxListModel ();
-        model.addCheckBoxElement ( "Extra Soft", true );
-        model.addCheckBoxElement ( "Soft", true );
-        model.addCheckBoxElement ( "Medium", true );
-        model.addCheckBoxElement ( "Hard", true );
-        model.addCheckBoxElement ( "Rain", true );
+        for(Constants.Tyres item : Constants.Tyres.values())
+            model.addCheckBoxElement( item.toString(), false);
         return model;
     }
 	
 	private CheckBoxListModel createUsageModel ()
     {
         final CheckBoxListModel model = new CheckBoxListModel ();
-        model.addCheckBoxElement ( "Very Low", true );
-        model.addCheckBoxElement ( "Low", true );
-        model.addCheckBoxElement ( "Medium", true );
-        model.addCheckBoxElement ( "High", true );
-        model.addCheckBoxElement ( "Very High", true );
+        for(Constants.difficultyListing item : Constants.difficultyListing.values())
+            model.addCheckBoxElement( item.toString(), false);
         return model;
     }
 	
@@ -173,7 +169,7 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 		
 		}
 		ArrayList<Constants.difficultyListing> fUsage = new ArrayList<Constants.difficultyListing>();
-		for(CheckBoxCellData s : tyreCheckBox.getCheckBoxListModel().getElements()){
+		for(CheckBoxCellData s : fuelConsumptionCheckBox.getCheckBoxListModel().getElements()){
 			if(!s.isSelected()){
 				fUsage.add(Constants.difficultyListingObject(s.getUserObject().toString()));
 			}
