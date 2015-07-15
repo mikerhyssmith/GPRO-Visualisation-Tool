@@ -26,7 +26,6 @@ import factoryProviders.SearchFactory;
 
 public class SearchPanel extends JPanel implements UIElement,ActionListener {
 	
-
 	private SearchFactory sFact = new SearchFactory();
 	private RangeSlider distanceSlider;
 	private RangeSlider tempSlider;
@@ -36,8 +35,6 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
 	private WebCheckBoxList tyreCheckBox;
 	private WebCheckBoxList fuelConsumptionCheckBox;
 
-
-	
 	public SearchPanel(ResultsPanel results){
 		this.setLayout(new FlowLayout());
 		this.results = results;
@@ -121,8 +118,6 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
         mistakeSwitch.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createVerticalGlue());
         
-        
-        
         this.add(tyreCollapsePane);
         this.add(Box.createVerticalGlue());
         this.add(tyreUsageCollapsePane);
@@ -138,17 +133,13 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
         button1.setAlignmentX(Component.RIGHT_ALIGNMENT);
         button1.addActionListener(this);
         this.add(button1);
-        
-		
-		
 	}
 
-	
 	private CheckBoxListModel createTyreModel ()
     {
         final CheckBoxListModel model = new CheckBoxListModel ();
         for(Constants.Tyres item : Constants.Tyres.values())
-            model.addCheckBoxElement( item.toString(), false);
+            model.addCheckBoxElement( Constants.tyresString(item), false);
         return model;
     }
 	
@@ -156,7 +147,7 @@ public class SearchPanel extends JPanel implements UIElement,ActionListener {
     {
         final CheckBoxListModel model = new CheckBoxListModel ();
         for(Constants.difficultyListing item : Constants.difficultyListing.values())
-            model.addCheckBoxElement( item.toString(), false);
+            model.addCheckBoxElement( Constants.difficultyListingString(item), false);
         return model;
     }
 	

@@ -26,7 +26,7 @@ public class SearchFactory {
 		//NO PROBLEMS IN REFINER
 		//NO DRIVER MISTAKES IN REFINER
 		for(Constants.Tyres t : tyres){
-			result = refiner.refineTyres(result, t);
+			result = refiner.removeTyres(result, t);
 		}
 		// NO TYRE USAGE IN REFINER
 		/**
@@ -34,7 +34,7 @@ public class SearchFactory {
 			result = refiner.refineFuel(result, d);
 		}
 		*/
-		
+	
 		
 		return result;
 		

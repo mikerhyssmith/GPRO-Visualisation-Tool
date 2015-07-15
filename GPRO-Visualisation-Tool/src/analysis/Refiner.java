@@ -3,7 +3,6 @@ package analysis;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
-import java.util.EnumSet;
 
 import data.*;
 import analysis.Constants.*;
@@ -33,25 +32,38 @@ public class Refiner {
         return races;
     }
     
-    public static ArrayList<Race> refineTyres(ArrayList<Race> races, Tyres tyres)
+    public static ArrayList<Race> removeTyres(ArrayList<Race> races, Tyres tyres)
     {
         Iterator<Race> i = races.iterator();
         while(i.hasNext())
         {
             Race race = i.next();
-            if(race.getDryTyres() != tyres)
+            if(race.getDryTyres() == tyres)
                 i.remove();
         }
         return races;
     }
     
-    public static ArrayList<Race> refineSeason(ArrayList<Race> races, int seasonNo)
+    
+    public static ArrayList<Race> removeFuel(ArrayList<Race> races, difficultyListing fuel)
     {
         Iterator<Race> i = races.iterator();
         while(i.hasNext())
         {
             Race race = i.next();
-            if(race.getSeason() != seasonNo)
+            if(race.getTrack().getFuelConsumption() == fuel)
+                i.remove();
+        }
+        return races;
+    }
+    
+    public static ArrayList<Race> removeSeason(ArrayList<Race> races, int seasonNo)
+    {
+        Iterator<Race> i = races.iterator();
+        while(i.hasNext())
+        {
+            Race race = i.next();
+            if(race.getSeason() == seasonNo)
                 i.remove();
         }
         return races;
@@ -77,18 +89,6 @@ public class Refiner {
             Race race = i.next();
             float distance = race.getTrack().getDistance();
             if(distance < min || distance > max)
-                i.remove();
-        }
-        return races;
-    }
-    
-    public static ArrayList<Race> refineFuel(ArrayList<Race> races, difficultyListing difficulty)
-    {
-        Iterator<Race> i = races.iterator();
-        while(i.hasNext())
-        {
-            Race race = i.next();
-            if(race.getTrack().getFuelConsumption() != difficulty)
                 i.remove();
         }
         return races;
